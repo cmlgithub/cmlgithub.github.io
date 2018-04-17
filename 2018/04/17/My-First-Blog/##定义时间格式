@@ -81,7 +81,7 @@
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="My First Blog">
-<meta property="og:url" content="http://yoursite.com##定义网站访问的域名/2018/04/17/My-First-Blog/##定义时间格式">
+<meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2018/04/17/My-First-Blog/##定义时间格式">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-04-17T03:44:14.198Z">
@@ -116,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com##定义网站访问的域名/2018/04/17/My-First-Blog/##定义时间格式"/>
+  <link rel="canonical" href="https://cmlgithub.github.io##定义网站访问的域名/2018/04/17/My-First-Blog/##定义时间格式"/>
 
 
 
@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com##定义网站访问的域名/2018/04/17/My-First-Blog/##定义时间格式">
+    <link itemprop="mainEntityOfPage" href="https://cmlgithub.github.io##定义网站访问的域名/2018/04/17/My-First-Blog/##定义时间格式">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cml">
