@@ -319,79 +319,16 @@
 
       
         
-          
-            <h1 id="一-搭建hexo和关联-github"><a href="#一-搭建hexo和关联-github" class="headerlink" title="一.搭建hexo和关联 github"></a>一.搭建hexo和关联 github</h1><h3 id="1-前提"><a href="#1-前提" class="headerlink" title="1.前提"></a>1.前提</h3><h3 id="yourusername-代表你的-github-用户名"><a href="#yourusername-代表你的-github-用户名" class="headerlink" title="yourusername 代表你的 github 用户名"></a>yourusername 代表你的 github 用户名</h3><ol>
-<li>github 已经创建好了 yourusername.github.io(即 <a href="https://yourusername.github.io" target="_blank" rel="noopener">https://yourusername.github.io</a> 是有页面的)</li>
-<li>mac 已经安装好 git</li>
-<li>更新 npm </li>
-</ol>
-<h3 id="2-安装-Hexo"><a href="#2-安装-Hexo" class="headerlink" title="2.安装 Hexo"></a>2.安装 Hexo</h3><pre><code>$    sudo npm install -g hexo
-</code></pre><h3 id="3-Hexo-init"><a href="#3-Hexo-init" class="headerlink" title="3.Hexo init"></a>3.Hexo init</h3><p><strong>tips</strong>: 这一步会新建一个文件夹,而且以后的 blog 的相关操作都会在这个文件夹中.</p>
-<p>新建一个文件夹,例如名字叫 blog ,然后在终端中 cd 到 blog 下,随后执行以下的命令</p>
-<pre><code>$    hexo init
-$    npm install 
-$    hexo server
-</code></pre><p>此时, hexo 的服务会在本地运行起来,理所当然就可以通过浏览器访问到 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></p>
-<h3 id="4-关联-github"><a href="#4-关联-github" class="headerlink" title="4.关联 github"></a>4.关联 github</h3><p>1.进入到 blog 文件夹目录下,打开_config.yml 文件<br><br>2.修改 deploy 下的内容如下</p>
-<pre><code>deploy:
-    type: git
-    repo: https://github.com/yourusername/yourusername.github.io
-    branch: master
-</code></pre><h3 id="5-同步到-github"><a href="#5-同步到-github" class="headerlink" title="5.同步到 github"></a>5.同步到 github</h3><p>在终端执行如下命令</p>
-<pre><code>$    hexo clean
-$    hexo g
-$    hexo d
-</code></pre><p>当同步成功之后就可以在浏览器中打开<code>https://yourusername.github.io</code>会看到和刚才打开<code>http://localhost:4000</code>一样的画面了</p>
-<h3 id="6-更换主题"><a href="#6-更换主题" class="headerlink" title="6.更换主题"></a>6.更换主题</h3><p>以 next 主题为例<br>在终端 cd 到 blog 目录下执行如下命令</p>
-<pre><code>$ git clone https://github.com/iissnan/hexo-theme-next themes/next
-</code></pre><p>等待 clone 完成之后</p>
-<p>打开 blog文件夹下的_config.yml,然后将里面theme 对应的值由 landscape 修改为 next</p>
-<p>然后部署到服务器(终端在 blog 目录下)三步</p>
-<pre><code>$  hexo clean        //清除缓存(db.json)和静态文件(public)
-$    hexo g            //生成缓存和静态文件
-$    hexo d            //部署到服务器
-</code></pre><h3 id="7-绑定域名"><a href="#7-绑定域名" class="headerlink" title="7.绑定域名"></a>7.绑定域名</h3><p>在<code>/blog/themes/landscpae/source</code>目录下新建<code>CNAME</code>文件,随后在文件中填写yourusername.github.io</p>
-<p>至此,相关步骤就完成了</p>
-<h1 id="二-布局设置和文章管理"><a href="#二-布局设置和文章管理" class="headerlink" title="二.布局设置和文章管理"></a>二.布局设置和文章管理</h1><h3 id="1-站点配置文件和主题配置文件"><a href="#1-站点配置文件和主题配置文件" class="headerlink" title="1.站点配置文件和主题配置文件"></a>1.站点配置文件和主题配置文件</h3><p><code>站点配置文件</code> 路径<code>/blog/_config.yml</code><br>这里附上一张图(部分内容)<br><img src="/2018/04/17/Mac下搭建自己的-GitHub-Hexo-Blog/set_root.png" alt=""></p>
-<p><code>主题配置文件</code>路径<code>/blog/themes/next/_config.yml</code><br>同样来一张图(部分内容)<br><img src="/2018/04/17/Mac下搭建自己的-GitHub-Hexo-Blog/set_theme.png" alt=""></p>
-<p>说明:两个配置文件可以设置标题,样式,主题形式,标签等等</p>
-<p>以 Schemes 为例(在主题配置文件中)</p>
-<pre><code># Schemes
-#scheme: Muse
-#scheme: Mist
-scheme: Pisces
-#scheme: Gemini
-</code></pre><p>有以上几种主题样式风格,可以试试看,自己喜欢那个就放开那个即可</p>
-<h3 id="2-发布文章"><a href="#2-发布文章" class="headerlink" title="2.发布文章"></a>2.发布文章</h3><p>都弄好了,后续就是我们发布文章了<br>先在终端中进入 blog 目录下,然后执行如下命令</p>
-<pre><code>$    hexo n &quot;blog-title&quot;
-</code></pre><p>命令执行完成之后,会有一个以<code>blog-title</code>为标题的文章了,当然文章名自己起就好了</p>
-<p>那么怎么写文章的内容呢?</p>
-<p>我们要进入到<code>/blog/source/_posts</code>这个目录下,你就会看到<code>blog-title.md</code>这样的文件,然后编辑这个文件即可</p>
-<p>最后就是把文章同步到 github 上了,同样是我们上面的三步</p>
-<pre><code>$    hexo clean
-$     hexo g
-$    hexo d
-</code></pre><h3 id="3-文章中图片的问题"><a href="#3-文章中图片的问题" class="headerlink" title="3.文章中图片的问题"></a>3.文章中图片的问题</h3><p>我们的文章中图片必须要存在的,因此图片存放的位置在哪呢?<br><br>别急,先设置一下<br><br>在我们的<code>站点配置文件</code>中找到这样的一个属性<code>post_asset_folder</code>然后将值改为<code>true</code>即可</p>
-<p>好了,我们再次新建一篇文章</p>
-<pre><code>$    hexo n &quot;blog-title2&quot;
-</code></pre><p>命令完成之后,进入到文章所在的目录<code>/blog/source/_posts</code><br>我们发现多了一个以<code>blog-title2</code>为名的文件夹<br></p>
-<p>so这个文件夹就是我们<code>blog-title2</code>这篇文章要存放的图片的地方了,然后在我们的文章中用相对布局引用图片位置即可</p>
-<p>想在网页中看到?做我们的同步三步即可了啊</p>
-<h3 id="4-文章增加标签"><a href="#4-文章增加标签" class="headerlink" title="4.文章增加标签"></a>4.文章增加标签</h3><p>老规矩,先设置,这次打开<code>主题配置文件</code>(看张图吧)</p>
-<p><img src="/2018/04/17/Mac下搭建自己的-GitHub-Hexo-Blog/tags.png" alt=""></p>
-<p>如图,只要把<code>tags</code>的注释放开即可</p>
-<p>然后网页上的效果如下图</p>
-<p><img src="/2018/04/17/Mac下搭建自己的-GitHub-Hexo-Blog/tags_github.png" alt=""></p>
-<p>然后就是给文章增加标签了</p>
-<p>我们每次新建文章后,打开 md 文件不难发现会有如下的内容</p>
-<p><img src="/2018/04/17/Mac下搭建自己的-GitHub-Hexo-Blog/blog_content_set.png" alt=""></p>
-<p>如果没有自己加上相应的内容即可</p>
-<p>这里我们要处理的就是<code>tags</code>属性,给它加上对应的值,就会生成对应的标签了,</p>
-<p>这里还是以我的 blog 上的为例(目前标签比较少,哈哈)</p>
-<p><img src="/2018/04/17/Mac下搭建自己的-GitHub-Hexo-Blog/blog_tags_simple.png" alt=""></p>
-<h3 id="5-删除文章"><a href="#5-删除文章" class="headerlink" title="5.删除文章"></a>5.删除文章</h3><p>这个就比较简单了,只需要在本地的<code>/blog/source/_post</code>目录下找到要删除的 md 文件</p>
-
-          
+          <h1 id="零-随便说说"><a href="#零-随便说说" class="headerlink" title="零.随便说说"></a>零.随便说说</h1><p>之前写的 blog 也是这写点那写点,一直想弄一个自己,特别是 github 上得年费又好用,这下有时间了,整了一下子,特此记录一下,也算是一个好的开始吧.</p>
+<p>随后会把之前blog 中的自认为还可以的内容迁移过来!</p>
+<p>详细步骤如下:</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/17/Mac下搭建自己的-GitHub-Hexo-Blog/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
