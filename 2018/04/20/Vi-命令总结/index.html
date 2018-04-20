@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Computer," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="vi 常用命令命令线路图 重复次数(先输入数字 n,再跟上一个命令.会让此命令执行 n 次) 移动和选择 编辑操作(删除,复制,粘贴,替换,缩排) 撤销和重复 查找替换 编辑">
+<meta name="keywords" content="Computer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vi 命令总结">
+<meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2018/04/20/Vi-命令总结/index.html">
+<meta property="og:site_name" content="陈明亮的 Blog">
+<meta property="og:description" content="vi 常用命令命令线路图 重复次数(先输入数字 n,再跟上一个命令.会让此命令执行 n 次) 移动和选择 编辑操作(删除,复制,粘贴,替换,缩排) 撤销和重复 查找替换 编辑">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/04/20/Vi-命令总结/viWorkModel.png">
+<meta property="og:updated_time" content="2018-04-20T00:53:36.084Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vi 命令总结">
+<meta name="twitter:description" content="vi 常用命令命令线路图 重复次数(先输入数字 n,再跟上一个命令.会让此命令执行 n 次) 移动和选择 编辑操作(删除,复制,粘贴,替换,缩排) 撤销和重复 查找替换 编辑">
+<meta name="twitter:image" content="https://cmlgithub.github.io/2018/04/20/Vi-命令总结/viWorkModel.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cmlgithub.github.io##定义网站访问的域名/2018/04/20/Vi-命令总结/"/>
+
+
+
+
+
+  <title>Vi 命令总结 | 陈明亮的 Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8fd4ada0332dc388c37d7285dc41b0a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈明亮的 Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cmlgithub.github.io##定义网站访问的域名/2018/04/20/Vi-命令总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cml">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/13469575?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈明亮的 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vi 命令总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-20T08:25:44+08:00">
+                2018-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="vi-常用命令"><a href="#vi-常用命令" class="headerlink" title="vi 常用命令"></a>vi 常用命令</h1><h2 id="命令线路图"><a href="#命令线路图" class="headerlink" title="命令线路图"></a>命令线路图</h2><ol>
+<li>重复次数(先输入数字 n,再跟上一个命令.会让此命令执行 n 次)</li>
+<li>移动和选择</li>
+<li>编辑操作(删除,复制,粘贴,替换,缩排)</li>
+<li>撤销和重复</li>
+<li>查找替换</li>
+<li>编辑</li>
+</ol>
+<a id="more"></a>
+<h2 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h2><p><img src="/2018/04/20/Vi-命令总结/viWorkModel.png" alt=""></p>
+<p><strong>0.末行模式下的命令</strong><br></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">w</td>
+<td style="text-align:center">保存</td>
+</tr>
+<tr>
+<td style="text-align:center">q</td>
+<td style="text-align:center">退出(没保存不能退出)</td>
+</tr>
+<tr>
+<td style="text-align:center">q!</td>
+<td style="text-align:center">强行退出(不保存所编辑过的内容)</td>
+</tr>
+<tr>
+<td style="text-align:center">wq</td>
+<td style="text-align:center">保存并退出</td>
+</tr>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">保存并退出</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1.新建\打开文件</strong></p>
+<pre><code>$ vi 文件名.后缀
+</code></pre><p>文件存在 , <code>打开</code>文件 <br><br>文件不存在 , <code>新建</code>文件 </p>
+<pre><code>$ vi 文件名.后缀 +(行号)
+</code></pre><p>打开文件并把光标定位到<code>指定行</code><br><br>如果没有指定行号那么就把光标定位到<code>文件末尾</code></p>
+<p><strong>2.移动和选择</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">h</td>
+<td style="text-align:center">向左</td>
+</tr>
+<tr>
+<td style="text-align:center">j</td>
+<td style="text-align:center">向下</td>
+</tr>
+<tr>
+<td style="text-align:center">k</td>
+<td style="text-align:center">向上</td>
+</tr>
+<tr>
+<td style="text-align:center">l</td>
+<td style="text-align:center">向右</td>
+</tr>
+</tbody>
+</table>
+<p><strong>行内移动</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">w</td>
+<td style="text-align:center">向后移动一个单词</td>
+</tr>
+<tr>
+<td style="text-align:center">b</td>
+<td style="text-align:center">向前移动一个单词</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">行首</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:center">行首(第一个非空白字符)</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td style="text-align:center">行尾</td>
+</tr>
+</tbody>
+</table>
+<p><strong>跨行移动</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">gg</td>
+<td style="text-align:center">文件顶部</td>
+</tr>
+<tr>
+<td style="text-align:center">G</td>
+<td style="text-align:center">文件尾部</td>
+</tr>
+<tr>
+<td style="text-align:center">数字gg</td>
+<td style="text-align:center">移动到 <strong>数字</strong> 对应行</td>
+</tr>
+<tr>
+<td style="text-align:center">数字G</td>
+<td style="text-align:center">移动到 <strong>数字</strong> 对应行</td>
+</tr>
+<tr>
+<td style="text-align:center">:数字</td>
+<td style="text-align:center">移动到 <strong>数字</strong> 对应行</td>
+</tr>
+</tbody>
+</table>
+<p><strong>跨屏移动</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Ctrl + f</td>
+<td style="text-align:center">向下翻页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + b</td>
+<td style="text-align:center">向上翻页</td>
+</tr>
+<tr>
+<td style="text-align:center">H</td>
+<td style="text-align:center">屏幕顶部</td>
+</tr>
+<tr>
+<td style="text-align:center">M</td>
+<td style="text-align:center">屏幕中部</td>
+</tr>
+<tr>
+<td style="text-align:center">L</td>
+<td style="text-align:center">屏幕底部</td>
+</tr>
+</tbody>
+</table>
+<p><strong>段落移动</strong> (用<code>空行</code>来区分段落)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">{</td>
+<td style="text-align:center">上一段</td>
+</tr>
+<tr>
+<td style="text-align:center">}</td>
+<td style="text-align:center">下一段</td>
+</tr>
+</tbody>
+</table>
+<p><strong>括号切换</strong>  (用于成对儿出现的括号<code>()</code> <code>[]</code> <code>{}</code>)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">%</td>
+<td style="text-align:center">括号间切换</td>
+</tr>
+</tbody>
+</table>
+<p><strong>标记</strong>(某位置需要一会儿还回来,则可以为此位置添加标记)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">m字母</td>
+<td style="text-align:center">标记此位置(字母为标记名)</td>
+</tr>
+<tr>
+<td style="text-align:center">‘字母</td>
+<td style="text-align:center">回到上次标记名为 <strong>字母</strong> 标记的位置</td>
+</tr>
+</tbody>
+</table>
+<p><strong>选中文本</strong>(可视模式,可配合移动命令使用)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">v</td>
+<td style="text-align:center">从光标位置开始选中文本</td>
+</tr>
+<tr>
+<td style="text-align:center">V</td>
+<td style="text-align:center">从光标所在行开始按 <strong>行</strong> 选中文本</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + v</td>
+<td style="text-align:center"><strong>垂直</strong> 方向选中文本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3.编辑操作</strong></p>
+<p><strong>tips:</strong> vi 的文本缓冲区和系统的剪切板不是同一个</p>
+<p><strong>撤销和恢复撤销</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">u</td>
+<td style="text-align:center">撤销命令</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl + r</td>
+<td style="text-align:center">恢复撤销</td>
+</tr>
+</tbody>
+</table>
+<p><strong>删除</strong>(本质是剪切)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">删除光标所在的 <strong>字符</strong> 或者 <strong>选中的文字</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">d</td>
+<td style="text-align:center">结合移动命令,删除到移动命令对应的内容</td>
+</tr>
+<tr>
+<td style="text-align:center">dd</td>
+<td style="text-align:center">删除一行文字,数字dd 可删除多行</td>
+</tr>
+<tr>
+<td style="text-align:center">D</td>
+<td style="text-align:center">从光标位置删除至行尾</td>
+</tr>
+</tbody>
+</table>
+<p><strong>tips:</strong> d’字母 从光标所在行删除到<code>标记行</code>之间的所有代码</p>
+<p><strong>复制\粘贴</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">y</td>
+<td style="text-align:center">复制(结合移动命令使用)</td>
+</tr>
+<tr>
+<td style="text-align:center">yy</td>
+<td style="text-align:center">复制一行</td>
+</tr>
+<tr>
+<td style="text-align:center">p</td>
+<td style="text-align:center">粘贴</td>
+</tr>
+</tbody>
+</table>
+<p><strong>替换</strong>(会进入替换模式 esc 退出此模式)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">r</td>
+<td style="text-align:center">替换当前字符</td>
+</tr>
+<tr>
+<td style="text-align:center">R</td>
+<td style="text-align:center">替换当前光标后的字符</td>
+</tr>
+</tbody>
+</table>
+<p><strong>缩排</strong>(对代码增加缩进)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&gt;&gt;</td>
+<td style="text-align:center">向右增加缩进</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;&lt;</td>
+<td style="text-align:center">向左增加缩进</td>
+</tr>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:center">重复命令</td>
+</tr>
+</tbody>
+</table>
+<p><strong>4.查找和替换</strong></p>
+<p><strong>常规查找</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/str</td>
+<td style="text-align:center">查找str</td>
+</tr>
+<tr>
+<td style="text-align:center">n</td>
+<td style="text-align:center">查找下一个</td>
+</tr>
+<tr>
+<td style="text-align:center">N</td>
+<td style="text-align:center">查找上一个</td>
+</tr>
+<tr>
+<td style="text-align:center"> *</td>
+<td style="text-align:center">查找光标所在<code>单词</code>,从当前位置<code>向后</code>查找</td>
+</tr>
+<tr>
+<td style="text-align:center"> #</td>
+<td style="text-align:center">查找光标所在<code>单词</code>,从当前位置<code>向前</code>查找</td>
+</tr>
+</tbody>
+</table>
+<p> <strong>tips:</strong>查找到的内容会一直高亮显示,如需要取消高亮显示,则查找一个文件不存在字符即可</p>
+<p> <strong>替换</strong></p>
+<p> <strong>tips:</strong>通用格式:%s///g</p>
+<p> <strong>全局替换</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:%s/旧文本/新文本/g</td>
+<td style="text-align:center">会一次性替换文件中出现的所有旧文本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>可视区域替换</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:s/旧文本/新文本/g</td>
+<td style="text-align:center">替换所选内容中的旧文本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>确认替换</strong>(替换之前要先确认)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:%s/旧文本/新文本/gc</td>
+<td style="text-align:center">替换所选内容中的旧文本</td>
+</tr>
+<tr>
+<td style="text-align:center">y</td>
+<td style="text-align:center">yes 替换</td>
+</tr>
+<tr>
+<td style="text-align:center">n</td>
+<td style="text-align:center">no 不替换</td>
+</tr>
+<tr>
+<td style="text-align:center">a</td>
+<td style="text-align:center">all 替换所有</td>
+</tr>
+<tr>
+<td style="text-align:center">q</td>
+<td style="text-align:center">quit 退出替换</td>
+</tr>
+<tr>
+<td style="text-align:center">l</td>
+<td style="text-align:center">last 最后一个替换,并把光标移动到行首</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl + E</td>
+<td style="text-align:center">向下滚屏</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl + Y</td>
+<td style="text-align:center">向上滚屏</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5.编辑</strong></p>
+<p>从<code>命令模式</code>快速进入<code>编辑模式</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">o</td>
+<td style="text-align:center">当前行下方插入一空行,并定位到此空行</td>
+</tr>
+<tr>
+<td style="text-align:center">O</td>
+<td style="text-align:center">当前行上方插入一空行,并定位到此空行</td>
+</tr>
+<tr>
+<td style="text-align:center">i</td>
+<td style="text-align:center">当前光标所在字符位置插入文本</td>
+</tr>
+<tr>
+<td style="text-align:center">I</td>
+<td style="text-align:center">当前行首位置插入文本</td>
+</tr>
+<tr>
+<td style="text-align:center">a</td>
+<td style="text-align:center">当前字符后添加文本</td>
+</tr>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">当前行末添加文本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>编辑命令和数字的连用</strong></p>
+<p><strong>eg</strong>: 输入10个#<br></p>
+<ol>
+<li>命令模式下输入<code>10</code><br></li>
+<li>输入<code>i</code>进入编辑模式<br></li>
+<li>输入<code>*</code>(即要重复的内容)<br></li>
+<li>通过<code>esc</code>返回到命令模式之后就会重复执行第2和第3步达到10个#的目的<br><br><strong>tips:</strong> 正常情况下,进入编辑模式前,<strong>不要按数字</strong></li>
+</ol>
+<p><strong>eg:</strong>利用可视块给多行代码增加注释</p>
+<ol>
+<li>利用<code>^</code>移动光标到需要注释的第一行的<strong>行首</strong></li>
+<li>通过 <code>Ctrl + v</code> 进入<strong>可视块</strong></li>
+<li>使用 <code>j</code> 向下<strong>连续选中</strong>要注释的行</li>
+<li>输入 <code>I</code>进入<strong>编辑模式</strong>(可视模式下无法通过 i 来进入编辑模式),并在行首插入字符#(Python中)</li>
+<li>通过 <code>esc</code> 返回<strong>命令模式</strong>,则会为刚才<strong>所有选中行</strong>行首增加#</li>
+</ol>
+<p><strong>6.末行命令扩展</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:e 文件名</td>
+<td style="text-align:center">会在当前窗口切换大此文件</td>
+</tr>
+<tr>
+<td style="text-align:center">:e .</td>
+<td style="text-align:center">通过 vi 内置浏览器,显示当前目录下的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">:n 文件名</td>
+<td style="text-align:center">新建文件</td>
+</tr>
+<tr>
+<td style="text-align:center">:w 文件名</td>
+<td style="text-align:center">另存为文件(当前编辑的文件并不会切换到新保存的文件内)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>tips:</strong> 切换文件时,必须要保证当前文件已经保存</p>
+<p><strong>6.分屏命令</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:sp</td>
+<td style="text-align:center">横向分屏(两个屏幕一上一下),同时显示当前正在编辑的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">:sp 文件名</td>
+<td style="text-align:center">横向分屏,上方显示分屏之前的文件,下方显示新打开的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">:vsp [文件名]</td>
+<td style="text-align:center">纵向分屏(两个屏幕一左一右),加不加文件名效果同上</td>
+</tr>
+</tbody>
+</table>
+<p><strong>操作多个屏幕之前必须先通过<code>ctrl + w</code>然后再执行下面的命令</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">w</td>
+<td style="text-align:center">切换到下一个窗口</td>
+</tr>
+<tr>
+<td style="text-align:center">r</td>
+<td style="text-align:center">互换窗口</td>
+</tr>
+<tr>
+<td style="text-align:center">c</td>
+<td style="text-align:center">关闭当前窗口(但不能关闭最后一个)</td>
+</tr>
+<tr>
+<td style="text-align:center">q</td>
+<td style="text-align:center">退出当前窗口(如果是最后一个则退出 vi)</td>
+</tr>
+<tr>
+<td style="text-align:center">o</td>
+<td style="text-align:center">关闭其他窗口</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Computer/" rel="tag"># Computer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/19/一图看懂-Android-启动模式/" rel="next" title=" 一图看懂 Android  启动模式">
+                <i class="fa fa-chevron-left"></i>  一图看懂 Android  启动模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/20/进制相关总结/" rel="prev" title="进制相关总结">
+                进制相关总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars1.githubusercontent.com/u/13469575?s=460&v=4"
+                alt="cml" />
+            
+              <p class="site-author-name" itemprop="name">cml</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-常用命令"><span class="nav-number">1.</span> <span class="nav-text">vi 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令线路图"><span class="nav-number">1.1.</span> <span class="nav-text">命令线路图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作模式"><span class="nav-number">1.2.</span> <span class="nav-text">工作模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cml</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
