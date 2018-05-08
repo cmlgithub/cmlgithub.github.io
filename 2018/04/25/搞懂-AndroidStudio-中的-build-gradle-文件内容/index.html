@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="此文章未完待续对 Android Studio 中的 build.gradle 一直是中模棱两可的状态,只是简单的知道怎么用,怎么改,有时候报错了也只是 search 一下把网上的代码弄过来,问题解决了就 ok 了. 但是心里一直有个这个坎儿,终于抽时间来彻底弄懂 build.gradle 文件中的代码是什么意思了. 开始吧 1.build.gradle文件的分类我们在建立一个新项目的时候,会发现">
+<meta name="description" content="此文章未完待续对 Android Studio 中的 build.gradle 一直是中模棱两可的状态,只是简单的知道怎么用,怎么改,有时候报错了也只是 search 一下把网上的代码弄过来,问题解决了就 ok 了. 但是心里一直有个这个坎儿,终于抽时间来彻底弄懂 build.gradle 文件中的代码是什么意思了. 开始吧 1.build.gradle文件的分类">
 <meta name="keywords" content="Android Studio">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搞懂 AndroidStudio 中的 build.gradle 文件内容">
 <meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2018/04/25/搞懂-AndroidStudio-中的-build-gradle-文件内容/index.html">
 <meta property="og:site_name" content="陈明亮的 Blog">
-<meta property="og:description" content="此文章未完待续对 Android Studio 中的 build.gradle 一直是中模棱两可的状态,只是简单的知道怎么用,怎么改,有时候报错了也只是 search 一下把网上的代码弄过来,问题解决了就 ok 了. 但是心里一直有个这个坎儿,终于抽时间来彻底弄懂 build.gradle 文件中的代码是什么意思了. 开始吧 1.build.gradle文件的分类我们在建立一个新项目的时候,会发现">
+<meta property="og:description" content="此文章未完待续对 Android Studio 中的 build.gradle 一直是中模棱两可的状态,只是简单的知道怎么用,怎么改,有时候报错了也只是 search 一下把网上的代码弄过来,问题解决了就 ok 了. 但是心里一直有个这个坎儿,终于抽时间来彻底弄懂 build.gradle 文件中的代码是什么意思了. 开始吧 1.build.gradle文件的分类">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/04/25/搞懂-AndroidStudio-中的-build-gradle-文件内容/gradle1.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/04/25/搞懂-AndroidStudio-中的-build-gradle-文件内容/gradle2.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/04/25/搞懂-AndroidStudio-中的-build-gradle-文件内容/gradle3.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/04/25/搞懂-AndroidStudio-中的-build-gradle-文件内容/gradle4.png">
-<meta property="og:updated_time" content="2018-05-08T09:11:48.860Z">
+<meta property="og:updated_time" content="2018-05-08T09:19:18.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搞懂 AndroidStudio 中的 build.gradle 文件内容">
-<meta name="twitter:description" content="此文章未完待续对 Android Studio 中的 build.gradle 一直是中模棱两可的状态,只是简单的知道怎么用,怎么改,有时候报错了也只是 search 一下把网上的代码弄过来,问题解决了就 ok 了. 但是心里一直有个这个坎儿,终于抽时间来彻底弄懂 build.gradle 文件中的代码是什么意思了. 开始吧 1.build.gradle文件的分类我们在建立一个新项目的时候,会发现">
+<meta name="twitter:description" content="此文章未完待续对 Android Studio 中的 build.gradle 一直是中模棱两可的状态,只是简单的知道怎么用,怎么改,有时候报错了也只是 search 一下把网上的代码弄过来,问题解决了就 ok 了. 但是心里一直有个这个坎儿,终于抽时间来彻底弄懂 build.gradle 文件中的代码是什么意思了. 开始吧 1.build.gradle文件的分类">
 <meta name="twitter:image" content="https://cmlgithub.github.io/2018/04/25/搞懂-AndroidStudio-中的-build-gradle-文件内容/gradle1.png">
 
 
@@ -328,7 +328,8 @@
         <h1 id="此文章未完待续"><a href="#此文章未完待续" class="headerlink" title="此文章未完待续"></a>此文章未完待续</h1><p>对 Android Studio 中的 build.gradle 一直是中模棱两可的状态,只是简单的知道怎么用,怎么改,有时候报错了也只是 search 一下把网上的代码弄过来,问题解决了就 ok 了.</p>
 <p>但是心里一直有个这个坎儿,终于抽时间来彻底弄懂 build.gradle 文件中的代码是什么意思了.</p>
 <p><strong>开始吧</strong></p>
-<h2 id="1-build-gradle文件的分类"><a href="#1-build-gradle文件的分类" class="headerlink" title="1.build.gradle文件的分类"></a>1.build.gradle文件的分类</h2><p>我们在建立一个新项目的时候,会发现整个的 project 中会存在两个 build.gradle 文件.</p>
+<h2 id="1-build-gradle文件的分类"><a href="#1-build-gradle文件的分类" class="headerlink" title="1.build.gradle文件的分类"></a>1.build.gradle文件的分类</h2><a id="more"></a>
+<p>我们在建立一个新项目的时候,会发现整个的 project 中会存在两个 build.gradle 文件.</p>
 <p>上一张图看看吧<br><img src="/2018/04/25/搞懂-AndroidStudio-中的-build-gradle-文件内容/gradle1.png" alt=""></p>
 <p>如上图所示<br><br>其中的<strong>1号文件</strong>是属于整个项目的 build.gradle 文件(这里叫它project层 gradle)<br><br><strong>2号文件</strong>是属于 app 这个 module 的 build.gradle 文件(这里叫它 module 层 gradle)<br><br>当然如果你引入了<strong>多个 module</strong> 的话那么每个 module里面都会存在一个 build.gradle 文件的.</p>
 <h2 id="2-project-层的-build-gradle-文件"><a href="#2-project-层的-build-gradle-文件" class="headerlink" title="2.project 层的 build.gradle 文件"></a>2.project 层的 build.gradle 文件</h2><p>同样上一张结构图吧,然后再分析</p>
