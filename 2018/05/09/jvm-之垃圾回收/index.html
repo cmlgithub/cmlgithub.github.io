@@ -79,15 +79,25 @@
 
 
 
+<meta name="description" content="在jvm中比较重要的一块就是垃圾回收,也是我们常常提到的 GC 了. 1.垃圾收集直白说就是:怎么确定那块内存是垃圾呢? 收集方法:1.引用计数法:对象的引用,每增加一个,那么引用的计数就++,同理每减少一个,引用的计数就–,当引用的计数为0的时候代表可以被回收优点:简单明了缺点:速度慢,会导致相互引用的问题">
 <meta name="keywords" content="JAVA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM 之垃圾回收">
 <meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2018/05/09/jvm-之垃圾回收/index.html">
 <meta property="og:site_name" content="陈明亮的 Blog">
+<meta property="og:description" content="在jvm中比较重要的一块就是垃圾回收,也是我们常常提到的 GC 了. 1.垃圾收集直白说就是:怎么确定那块内存是垃圾呢? 收集方法:1.引用计数法:对象的引用,每增加一个,那么引用的计数就++,同理每减少一个,引用的计数就–,当引用的计数为0的时候代表可以被回收优点:简单明了缺点:速度慢,会导致相互引用的问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-09T07:13:31.082Z">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/jvm-之垃圾回收/yinyongjishu.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/jvm-之垃圾回收/kedaxingsuanfa.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/jvm-之垃圾回收/biaojiqingchu.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/jvm-之垃圾回收/copy.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/jvm-之垃圾回收/mark_zhengli.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/jvm-之垃圾回收/fendaishouji.png">
+<meta property="og:updated_time" content="2018-05-10T06:08:18.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM 之垃圾回收">
+<meta name="twitter:description" content="在jvm中比较重要的一块就是垃圾回收,也是我们常常提到的 GC 了. 1.垃圾收集直白说就是:怎么确定那块内存是垃圾呢? 收集方法:1.引用计数法:对象的引用,每增加一个,那么引用的计数就++,同理每减少一个,引用的计数就–,当引用的计数为0的时候代表可以被回收优点:简单明了缺点:速度慢,会导致相互引用的问题">
+<meta name="twitter:image" content="https://cmlgithub.github.io/2018/05/09/jvm-之垃圾回收/yinyongjishu.png">
 
 
 
@@ -317,7 +327,29 @@
       
 
       
-        
+        <p>在jvm中比较重要的一块就是垃圾回收,也是我们常常提到的 GC 了.</p>
+<h2 id="1-垃圾收集"><a href="#1-垃圾收集" class="headerlink" title="1.垃圾收集"></a>1.垃圾收集</h2><p>直白说就是:怎么确定那块内存是垃圾呢?</p>
+<p><strong>收集方法:</strong><br><br><strong>1.引用计数法:</strong>对象的引用,每增加一个,那么引用的计数就++,同理每减少一个,引用的计数就–,当引用的计数为0的时候代表可以被回收<br><br><code>优点</code>:简单明了<br><br><code>缺点</code>:速度慢,会导致相互引用的问题</p>
+<a id="more"></a>
+<p>看看图<br><img src="/2018/05/09/jvm-之垃圾回收/yinyongjishu.png" alt=""></p>
+<p><strong>2.可达性算法:</strong>从根集(一般包括栈中引用的对象,方法区常量池中引用的对象)开始遍历,若有对象不可达,代表可以被回收.<br><br><code>优点</code>: 解决了引用计数法中相互引用的问题</p>
+<p>看看图<br><img src="/2018/05/09/jvm-之垃圾回收/kedaxingsuanfa.png" alt=""></p>
+<h2 id="2-垃圾回收"><a href="#2-垃圾回收" class="headerlink" title="2.垃圾回收"></a>2.垃圾回收</h2><p><strong>1.标记清除法：</strong>先标记所有需要被回收的内存,然后统一进行清理.<br><br><code>缺点:</code> 效率低,会产生大量的碎片.</p>
+<p>看看图<br><img src="/2018/05/09/jvm-之垃圾回收/biaojiqingchu.png" alt=""></p>
+<p>可以看到在 AfterGc 之后,空白位置基本没有连续的,产生了碎片.</p>
+<p><strong>2.复制法:</strong>将内存区域一分为二(A 和 B),只用其中的一块内存(A),当需要 Gc 的时候,把 A中 存活的对象,复制到 B 内存中,然后把 A 内存整个回收.<br><br><code>缺点:</code>内存需要二块</p>
+<p>看看图<br><img src="/2018/05/09/jvm-之垃圾回收/copy.png" alt=""></p>
+<p><strong>3.标记整理法:</strong>此方法是标记清除法的一个升级版,就是在标记清除之后,把内存整理一下,去除碎片<br><br><code>缺点:</code>在清除垃圾之后,还要增加一个整理的步骤</p>
+<p>看看图<br><img src="/2018/05/09/jvm-之垃圾回收/mark_zhengli.png" alt=""></p>
+<p><strong>4.分代收集算法:</strong>(这也是现在的虚拟机普遍用的算法)<br><br>其实这里没有新的算法,只是用了上面的几种而已.只不过方式改变了.来看看吧.</p>
+<p><img src="/2018/05/09/jvm-之垃圾回收/fendaishouji.png" alt=""></p>
+<p><code>说明:</code>此方法把 java Heap 分成了三个区域,分别是年轻代(Young),年老代(Old)和持久代</p>
+<p><strong>年轻代(Young):</strong> 这块内存又被分成了三个区域分别是 新生代(Enden),Survivo1和 Survivo2<br><br>1.Enden:所有新的对象都会在这块内存中产生<br><br>2.Survivo: 总有一块是空着的区域1或者2</p>
+<p>具体就是新对象产生于Enden 区域,当需要 Gc 的时候,会把存活的对象复制到 Survivo1号区域中,同时清空 Enden 和 Survivo2号区域,当再次需要 gc 的时候,把 Enden 中存活的对象放到 Survivo2号区域,同时也会把 Survivo1号区域中存活的对象复制到 Survivo2号区域.然后再把 Enden 和 Survivo1清空.后续就是重复执行刚才的步骤了.<br></p>
+<p><strong>年老代( Old):</strong><br><br>经过 n 次在 Young 的 gc 之后,依然能存活的对象,会被移动到 Old 区域.这里的 gc 不会像 Young 那么频繁.通常此区域满的时候会出发 Full GC, 回收整个堆内存<br><br><strong>年老代( Old):</strong><br><br>至于持久代里存放的都是周期最长,像静态变量,类相关的内容都会存储在这里</p>
+<p><code>tips:</code><br><br>1.Survivo1和 Survivo2两个区域对称么有先后顺序<br><br>2.Eden和 Survivo 并不是1:1分配的(如: HotSpot VM 是8:1)<br><br>3.总有一块 Survivo 是空闲的</p>
+<p>好了,关于 jvm 之内存方面就写到这里了,看完了以后相信你已经对 jvm 虚拟机方面有一个相对来说深入的了解了.</p>
+
       
     </div>
     
@@ -408,8 +440,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -464,6 +505,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-垃圾收集"><span class="nav-number">1.</span> <span class="nav-text">1.垃圾收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-垃圾回收"><span class="nav-number">2.</span> <span class="nav-text">2.垃圾回收</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
