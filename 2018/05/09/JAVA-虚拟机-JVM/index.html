@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/classzhushi.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/classloadering.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/classloadering2.png">
-<meta property="og:updated_time" content="2018-05-09T07:13:22.282Z">
+<meta property="og:updated_time" content="2018-05-10T06:12:58.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA 虚拟机 JVM">
 <meta name="twitter:description" content="JVM 结构 说明: 这里列出几个 jvm 中重要的几个点进行梳理.至于没有涉及到的图中的点,是不需要深入了解的,因为那是涉及 jvm 跟 cpu 之间的交互了,一般都是 c 语言构成的,不在 java 范围内 1.class 文件">
@@ -383,7 +383,7 @@
 <p>1.loading 就不用说太多了,就是上面我们刚刚介绍的,把<code>.class</code>加载到内存中<br><br>2.verifying 负责检查读入的结构是否符合 jvm 规范<br><br>3.preparing 分配一个结构来存储类信息.结构中包含了勒种的成员变量,方法和接口信息<br><br>4.resolving 把类的常量池中的所有符号引用改变为直接引用<br><br>5.initializing 把类中的变量初始化成合适的值,执行静态初始化程序</p>
 <p>对以上的步骤了解以后,我们就知道为什么类中的成员变量是先进行的默认初始化,然后才进行的显示初始化了.</p>
 <h2 id="3-内存区域"><a href="#3-内存区域" class="headerlink" title="3.内存区域"></a>3.内存区域</h2><p><strong>1. 虚拟机栈(Java Stack):</strong> 存放 Java 方法执行时的所有数据.每个方法对应一个栈帧,方法的执行就对应着栈帧的入栈到出栈的过程.每个栈帧中包含:局部变量表,栈操作数,动态链接和方法出口.<br><br><strong>2. 本地方法栈:</strong>类似于 java Stack, 主要用于服务 native 方法<br><br><strong>3.方法区:</strong>存储类信息,常量,静态变量.并且方法区是永远占据内存的<br><br><strong>4.堆 Heap:</strong>存储所有通过 new 创建的对象.并且是jvm 中最大的一块内存区域<br><br><strong>5.程序计数器</strong>保存当前线程执行的内存地址,例如在多线程中,由于可能发生中断而去执行别的线程,所以用来记录当前的执行位置,便于恢复执行</p>
-<h2 id="4-垃圾回收机制和相关算法"><a href="#4-垃圾回收机制和相关算法" class="headerlink" title="4.垃圾回收机制和相关算法"></a>4.垃圾回收机制和相关算法</h2><p>由于篇幅的问题,这部分内容会用一篇单独的文章来讲解.<br>主要是<strong>垃圾的收集方法</strong>和<strong>垃圾的回收方法</strong><br><a href="https://cmlgithub.github.io/2018/05/09/JAVA-%E8%99%9A%E6%8B%9F%E6%9C%BA-JVM/">JVM之垃圾回收</a></p>
+<h2 id="4-垃圾回收机制和相关算法"><a href="#4-垃圾回收机制和相关算法" class="headerlink" title="4.垃圾回收机制和相关算法"></a>4.垃圾回收机制和相关算法</h2><p>由于篇幅的问题,这部分内容会用一篇单独的文章来讲解.<br>主要是<strong>垃圾的收集方法</strong>和<strong>垃圾的回收方法</strong><br><a href="https://cmlgithub.github.io/2018/05/09/jvm-之垃圾回收/">JVM之垃圾回收</a></p>
 
       
     </div>
