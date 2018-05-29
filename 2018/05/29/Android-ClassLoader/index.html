@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="1.关于 Android ClassLoader基本原理跟 Java ClassLoader 相同. 所以在理解了 Java ClassLoader 的情况下,看 Android 的 ClassLoader 就比较简单了 若有不了解 Java ClassLoader 建议先去看看 Java 虚拟机这篇文章 然后再看 Android ClassLoader 也是主要的几个 ClassLoader 来">
+<meta name="description" content="1.关于 Android ClassLoader基本原理跟 Java ClassLoader 相同. 所以在理解了 Java ClassLoader 的情况下,看 Android 的 ClassLoader 就比较简单了 若有不了解 Java ClassLoader 建议先去看看 Java 虚拟机这篇文章">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android_ClassLoader">
 <meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2018/05/29/Android-ClassLoader/index.html">
 <meta property="og:site_name" content="陈明亮的 Blog">
-<meta property="og:description" content="1.关于 Android ClassLoader基本原理跟 Java ClassLoader 相同. 所以在理解了 Java ClassLoader 的情况下,看 Android 的 ClassLoader 就比较简单了 若有不了解 Java ClassLoader 建议先去看看 Java 虚拟机这篇文章 然后再看 Android ClassLoader 也是主要的几个 ClassLoader 来">
+<meta property="og:description" content="1.关于 Android ClassLoader基本原理跟 Java ClassLoader 相同. 所以在理解了 Java ClassLoader 的情况下,看 Android 的 ClassLoader 就比较简单了 若有不了解 Java ClassLoader 建议先去看看 Java 虚拟机这篇文章">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader/DexClassLoader.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader/PathClassLoader.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader/classLoader.png">
-<meta property="og:updated_time" content="2018-05-29T09:24:48.501Z">
+<meta property="og:updated_time" content="2018-05-29T09:38:49.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android_ClassLoader">
-<meta name="twitter:description" content="1.关于 Android ClassLoader基本原理跟 Java ClassLoader 相同. 所以在理解了 Java ClassLoader 的情况下,看 Android 的 ClassLoader 就比较简单了 若有不了解 Java ClassLoader 建议先去看看 Java 虚拟机这篇文章 然后再看 Android ClassLoader 也是主要的几个 ClassLoader 来">
+<meta name="twitter:description" content="1.关于 Android ClassLoader基本原理跟 Java ClassLoader 相同. 所以在理解了 Java ClassLoader 的情况下,看 Android 的 ClassLoader 就比较简单了 若有不了解 Java ClassLoader 建议先去看看 Java 虚拟机这篇文章">
 <meta name="twitter:image" content="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader/DexClassLoader.png">
 
 
@@ -336,6 +336,7 @@
         <h1 id="1-关于-Android-ClassLoader"><a href="#1-关于-Android-ClassLoader" class="headerlink" title="1.关于 Android ClassLoader"></a>1.关于 Android ClassLoader</h1><p>基本原理跟 Java ClassLoader 相同.</p>
 <p>所以在理解了 Java ClassLoader 的情况下,看 Android 的 ClassLoader 就比较简单了</p>
 <p>若有不了解 Java ClassLoader 建议先去看看<a href="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/"> Java 虚拟机</a>这篇文章</p>
+<a id="more"></a>
 <p>然后再看 Android ClassLoader</p>
 <p>也是主要的几个 ClassLoader 来构成 Android 中类的加载机制</p>
 <p><strong>1.BootClassLoader</strong></p>

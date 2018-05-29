@@ -329,16 +329,15 @@
 
       
         
-          
-            <h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><p><strong>是一种编程思想,为了代码的高度复用而出现</strong></p>
+          <h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><p><strong>是一种编程思想,为了代码的高度复用而出现</strong></p>
 <p>主要体现的就是封装的思想</p>
-<h2 id="插件化"><a href="#插件化" class="headerlink" title="插件化"></a>插件化</h2><p><strong>是一种技术,动态加载技术的应用,为了解决应用越来越庞大而出现</strong></p>
-<p>常见的插件化框架 Small Atlas….</p>
-<h2 id="动态更新"><a href="#动态更新" class="headerlink" title="动态更新"></a>动态更新</h2><p><strong>也是动态加载技术的应用,为了解决线上 bug 或者小功能更新而出现</strong></p>
-<p>主要应用就是热修复,</p>
-<p>常见热修复框架 AndFix Tinker…</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/29/插件化组件化等概念对比/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -455,33 +454,16 @@
 
       
         
-          
-            <h1 id="1-关于-Android-ClassLoader"><a href="#1-关于-Android-ClassLoader" class="headerlink" title="1.关于 Android ClassLoader"></a>1.关于 Android ClassLoader</h1><p>基本原理跟 Java ClassLoader 相同.</p>
+          <h1 id="1-关于-Android-ClassLoader"><a href="#1-关于-Android-ClassLoader" class="headerlink" title="1.关于 Android ClassLoader"></a>1.关于 Android ClassLoader</h1><p>基本原理跟 Java ClassLoader 相同.</p>
 <p>所以在理解了 Java ClassLoader 的情况下,看 Android 的 ClassLoader 就比较简单了</p>
 <p>若有不了解 Java ClassLoader 建议先去看看<a href="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/"> Java 虚拟机</a>这篇文章</p>
-<p>然后再看 Android ClassLoader</p>
-<p>也是主要的几个 ClassLoader 来构成 Android 中类的加载机制</p>
-<p><strong>1.BootClassLoader</strong></p>
-<p><strong>2.PathClassLoader</strong>:类似于 JVM 中的 AppClassLoader</p>
-<p><strong>3.DexClassLoader</strong>:类似于 JVM 中的CustomClassLoader</p>
-<p><strong>4.BaseDexClassLoader</strong>:是 PathClassLoader 和 DexClassLoder 的父类</p>
-<h1 id="2-Android-ClassLoader-源码分析"><a href="#2-Android-ClassLoader-源码分析" class="headerlink" title="2.Android ClassLoader 源码分析"></a>2.Android ClassLoader 源码分析</h1><h2 id="给出在线查看源码的地址"><a href="#给出在线查看源码的地址" class="headerlink" title="给出在线查看源码的地址"></a>给出在线查看源码的地址</h2><p><a href="http://androidxref.com/8.0.0_r4/xref/libcore/dalvik/src/main/java/dalvik/system/" target="_blank" rel="noopener">Android 源码</a></p>
-<h2 id="先看看-DexClassLoader"><a href="#先看看-DexClassLoader" class="headerlink" title="先看看 DexClassLoader"></a>先看看 DexClassLoader</h2><p><img src="/2018/05/29/Android-ClassLoader/DexClassLoader.png" alt=""></p>
-<p>类的注释意思就是说,它负责从 dex 文件中加载类,并且还可以加载没有安装到应用程序的类.</p>
-<p>所以它是实现<strong>动态加载</strong>的核心ClassLoader</p>
-<p>而关于构造器的参数</p>
-<p>dexPath:dex 文件的路径</p>
-<p>optimizedDirectory:是我们指定的 dex 文件要被拷贝到的地址(一般为内部地址)</p>
-<h2 id="再看看-PathClassLoader"><a href="#再看看-PathClassLoader" class="headerlink" title="再看看 PathClassLoader"></a>再看看 PathClassLoader</h2><p><img src="/2018/05/29/Android-ClassLoader/PathClassLoader.png" alt=""></p>
-<p>可以看到 PathClassLoader 只有两个构造器,</p>
-<p>我们主要看看第二个构造函数,相比较于 DexClassLoader 的构造函数少了一个参数 String optimizedDirectory 正是因为少了这个参数,所以 PathClassLoader 只能加载应用程序中已经安装的类.</p>
-<h2 id="BaseDexClassLoader"><a href="#BaseDexClassLoader" class="headerlink" title="BaseDexClassLoader"></a>BaseDexClassLoader</h2><p>这是 DexClassLoader 和 PathClassLoader 的父类,所有的工作都是在这个类里面完成的</p>
-<p>而这个类主要的方法就是findClass(String name).</p>
-<p>而 findClass(String name) 的整个实现过程(调用链)如下图</p>
-<p><img src="/2018/05/29/Android-ClassLoader/classLoader.png" alt=""></p>
-<p>可以知道最后是通过一个 native 方法实现了加载</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/29/Android-ClassLoader/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -619,8 +601,8 @@
 <tr>
 <td style="text-align:center"><strong>ClassLoader</strong></td>
 <td style="text-align:center"><a href="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/">java 虚拟机</a></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
+<td style="text-align:center"><a href="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader">Android ClassLoader</a></td>
+<td style="text-align:center"><a href="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader">Android ClassLoader</a></td>
 </tr>
 <tr>
 <td style="text-align:center"><strong>同时可存在数量</strong></td>
