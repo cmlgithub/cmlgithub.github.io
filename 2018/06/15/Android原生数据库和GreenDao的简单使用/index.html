@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="database," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="为什么要写这个文章呢,主要目的是做一个记录. 因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.当再需要用的时候,又得去查查查,浪费时间. Android SQLite1.创建SQLiteOpenHelper的子类 直接上代码 别看一丢代码就头大,其实这段代码比较简单,就是一个继承了 SQLiteOpenHelper的子类,有一个四个参数的构造器,然后实现了onCreate()和onUpg">
+<meta name="keywords" content="database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android原生数据库和GreenDao的简单使用">
+<meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2018/06/15/Android原生数据库和GreenDao的简单使用/index.html">
+<meta property="og:site_name" content="陈明亮的 Blog">
+<meta property="og:description" content="为什么要写这个文章呢,主要目的是做一个记录. 因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.当再需要用的时候,又得去查查查,浪费时间. Android SQLite1.创建SQLiteOpenHelper的子类 直接上代码 别看一丢代码就头大,其实这段代码比较简单,就是一个继承了 SQLiteOpenHelper的子类,有一个四个参数的构造器,然后实现了onCreate()和onUpg">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-15T09:25:01.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android原生数据库和GreenDao的简单使用">
+<meta name="twitter:description" content="为什么要写这个文章呢,主要目的是做一个记录. 因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.当再需要用的时候,又得去查查查,浪费时间. Android SQLite1.创建SQLiteOpenHelper的子类 直接上代码 别看一丢代码就头大,其实这段代码比较简单,就是一个继承了 SQLiteOpenHelper的子类,有一个四个参数的构造器,然后实现了onCreate()和onUpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cmlgithub.github.io##定义网站访问的域名/2018/06/15/Android原生数据库和GreenDao的简单使用/"/>
+
+
+
+
+
+  <title>Android原生数据库和GreenDao的简单使用 | 陈明亮的 Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8fd4ada0332dc388c37d7285dc41b0a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈明亮的 Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cmlgithub.github.io##定义网站访问的域名/2018/06/15/Android原生数据库和GreenDao的简单使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cml">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/13469575?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈明亮的 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android原生数据库和GreenDao的简单使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-15T16:29:01+08:00">
+                2018-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>为什么要写这个文章呢,主要目的是做一个记录.</p>
+<p>因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.<br>当再需要用的时候,又得去查查查,浪费时间.</p>
+<h2 id="Android-SQLite"><a href="#Android-SQLite" class="headerlink" title="Android SQLite"></a>Android SQLite</h2><p><strong>1.创建SQLiteOpenHelper的子类</strong></p>
+<p>直接上代码</p>
+<p>别看一丢代码就头大,其实这段代码比较简单,就是一个继承了 SQLiteOpenHelper的子类,有一个四个参数的构造器,然后实现了<code>onCreate()</code>和<code>onUpgrade()</code>两个方法,至于这两个方法的作用,代码中已经有相应的注释了.</p>
+<p>至于内部类 Builder, 相信知道建造者模式的一看就明白了.这只是为了创建实例的时候方便而已,不用也可以.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import android.content.Context;</span><br><span class="line">import android.database.sqlite.SQLiteDatabase;</span><br><span class="line">import android.database.sqlite.SQLiteOpenHelper;</span><br><span class="line">import android.text.TextUtils;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by chenmingliang on 2018/6/15.</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">public class DatabaseHelper extends SQLiteOpenHelper &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @param context</span><br><span class="line">     * @param name      数据库名称</span><br><span class="line">     * @param factory   一个可选的游标工厂(通常是 null)</span><br><span class="line">     * @param version   当前数据库的版本,必须是整数并且是递增状态</span><br><span class="line">     */</span><br><span class="line">    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) &#123;</span><br><span class="line">        super(context, name, factory, version);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 数据库第一次创建的时候调用</span><br><span class="line">     * 也就是 第一次 getWritableDatabase() / getReadableDatabase()</span><br><span class="line">     * @param db</span><br><span class="line">     *</span><br><span class="line">     * 作用: 创建数据库/表并且初始化数据</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void onCreate(SQLiteDatabase db) &#123;</span><br><span class="line"></span><br><span class="line">        //创建一个 person 的表(id,name,address)</span><br><span class="line">        String sql = &quot;create table person(id integer primary key autoincrement,name varchar(64),address varchar(64))&quot;;</span><br><span class="line">        db.execSQL(sql);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 数据库升级时自动调用即数据库版本发生变化的时候</span><br><span class="line">     * @param db</span><br><span class="line">     * @param oldVersion</span><br><span class="line">     * @param newVersion</span><br><span class="line">     *</span><br><span class="line">     * 作用:更新数据库表结构</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) &#123;</span><br><span class="line">        String sql = &quot;alter table person add sex varchar(8)&quot;;</span><br><span class="line">        db.execSQL(sql);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final class Builder&#123;</span><br><span class="line">        public static final String CONTEXT = &quot;context&quot;;</span><br><span class="line">        public static final String NAME = &quot;name&quot;;</span><br><span class="line"></span><br><span class="line">        private  Context bContext;</span><br><span class="line">        private  String bName;</span><br><span class="line">        private  int bVersion;</span><br><span class="line">        public Builder context(Context context)&#123;</span><br><span class="line">            this.bContext = context;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line">        public Builder databaseName(String name)&#123;</span><br><span class="line">            this.bName = name;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line">        public Builder databaseVersion(int version)&#123;</span><br><span class="line">            this.bVersion = version;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line">        public DatabaseHelper build()&#123;</span><br><span class="line"></span><br><span class="line">            checkNotNull(bContext,CONTEXT);</span><br><span class="line"></span><br><span class="line">            if(TextUtils.isEmpty(bName))</span><br><span class="line">                checkNotNull(null,NAME);</span><br><span class="line"></span><br><span class="line">            if(0 == bVersion)</span><br><span class="line">                bVersion = 1;</span><br><span class="line"></span><br><span class="line">            return new DatabaseHelper(bContext,bName,null,bVersion);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private void checkNotNull(Object object,String type)&#123;</span><br><span class="line">            if(null == object)&#123;</span><br><span class="line">                String message = null;</span><br><span class="line">                switch (type)&#123;</span><br><span class="line">                    case CONTEXT:</span><br><span class="line">                        message = &quot;context is not null in DatabaseHelper&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case NAME:</span><br><span class="line">                        message = &quot;name is not null or empty in DatabaseHelper&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    default:</span><br><span class="line">                &#125;</span><br><span class="line">                throw new NullPointerException(message);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2.具体使用</strong></p>
+<p>当我们有了 SQLiteOpenHelper 的子类后,我们就可以开始创建数据库创建表…操作了,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">private void database() &#123;</span><br><span class="line">        //创建数据库 Helper 类</span><br><span class="line">        DatabaseHelper databaseHelper = new DatabaseHelper.Builder()</span><br><span class="line">                .context(this)</span><br><span class="line">                .databaseName(&quot;cml&quot;)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        //这时候会真正的创建数据库</span><br><span class="line">        SQLiteDatabase database = databaseHelper.getWritableDatabase();</span><br><span class="line">        </span><br><span class="line">        //增</span><br><span class="line">        String insertSql  = &quot;insert into person (id,name) values (1,&apos;aaa&apos;)&quot;;</span><br><span class="line">        database.execSQL(insertSql);</span><br><span class="line">        String insertSql2 = &quot;insert into person (id,name) values (2,&apos;ccc&apos;)&quot;;</span><br><span class="line">        database.execSQL(insertSql2);</span><br><span class="line"></span><br><span class="line">        //改</span><br><span class="line">        String updateSql = &quot;update [person] set name = &apos;aaa2&apos; where id = 1&quot;;</span><br><span class="line">        database.execSQL(updateSql);</span><br><span class="line"></span><br><span class="line">        //删</span><br><span class="line">        String deleteSql = &quot;delete from person where id = 2&quot;;</span><br><span class="line">        database.execSQL(deleteSql);</span><br><span class="line"></span><br><span class="line">        //查</span><br><span class="line">        Cursor cursor = database.rawQuery(&quot; select * from person &quot;, null);</span><br><span class="line">        if(cursor.moveToFirst())&#123;</span><br><span class="line">            do &#123;</span><br><span class="line">                String id = cursor.getString(cursor.getColumnIndex(&quot;id&quot;));</span><br><span class="line">                String name = cursor.getString(cursor.getColumnIndex(&quot;name&quot;));</span><br><span class="line">                Log.e(&quot;Cml&quot;,&quot;person--&gt;id:&quot; +id+&quot;,name:&quot; +name);</span><br><span class="line">            &#125;while (cursor.moveToNext());</span><br><span class="line">			  cursor.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>好了,原生的简单用法就如上了,其中为了避免用 android 的方法传入过多的参数,就直接执行 sql 语句来进行数据的增删改查了,也建议这样做,可以有效的减少错误的发生.</p>
+<h2 id="GrennDao-的使用"><a href="#GrennDao-的使用" class="headerlink" title="GrennDao 的使用"></a>GrennDao 的使用</h2><p><a href="https://github.com/greenrobot/greenDAO" target="_blank" rel="noopener">github address</a></p>
+<p><strong>1.使用前配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// In your root build.gradle file:</span><br><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">        mavenCentral() // add repository</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath &apos;com.android.tools.build:gradle:3.1.1&apos;</span><br><span class="line">        classpath &apos;org.greenrobot:greendao-gradle-plugin:3.2.2&apos; // add plugin</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// In your app projects build.gradle file:</span><br><span class="line">apply plugin: &apos;com.android.application&apos;</span><br><span class="line">apply plugin: &apos;org.greenrobot.greendao&apos; // apply plugin</span><br><span class="line"> </span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation &apos;org.greenrobot:greendao:3.2.2&apos; // add library</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greendao &#123;</span><br><span class="line">    schemaVersion 1 // 数据库版本号</span><br><span class="line">    daoPackage &quot;com.cml.myapplication.greendao&quot; //自动生成文件的路劲(一般为包名+自定义文件夹名)</span><br><span class="line">    targetGenDir &quot;src/main/java&quot; //一般默认如此即可</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2.创建实体类</strong></p>
+<p>使用注解</p>
+<p>‘’’<br>@Entity<br>public class Person {<br>    @Id<br>    private long id;<br>    private String name;<br>}</p>
+<p>‘’’</p>
+<p>然后Make Project 实体类就变成了如下(dao 自动为我们加了一些代码)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@Entity</span><br><span class="line">public class Person &#123;</span><br><span class="line">    @Id</span><br><span class="line">    private long id;</span><br><span class="line">    private String name;</span><br><span class="line">    @Generated(hash = 2039202055)</span><br><span class="line">    public Person(long id, String name) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    @Generated(hash = 1024547259)</span><br><span class="line">    public Person() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    public long getId() &#123;</span><br><span class="line">        return this.id;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setId(long id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return this.name;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3.在 Application 中进行初始化</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class MyApplication extends Application &#123;</span><br><span class="line"></span><br><span class="line">    public static MyApplication mInstance;</span><br><span class="line">    private DaoSession mDaoSession;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onCreate() &#123;</span><br><span class="line">        super.onCreate();</span><br><span class="line">        mInstance = this;</span><br><span class="line">        initDatabase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static MyApplication getApplication()&#123;</span><br><span class="line">        return mInstance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private void initDatabase() &#123;</span><br><span class="line">        DaoMaster.DevOpenHelper openHelper = new DaoMaster.DevOpenHelper(this, &quot;person&quot;);</span><br><span class="line">        SQLiteDatabase database = openHelper.getWritableDatabase();</span><br><span class="line">        DaoMaster daoMaster = new DaoMaster(database);</span><br><span class="line">        mDaoSession = daoMaster.newSession();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public DaoSession getDaoSession()&#123;</span><br><span class="line">        return mDaoSession;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void initAndfix() &#123;</span><br><span class="line">        AndfixPatchManager.getInstance().initPatch(this);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>ps:别忘记在 AndroidManifest.xml 中配置 application哦</strong></p>
+<p><strong>4.具体使用</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private void databaseWithDAO() &#123;</span><br><span class="line"></span><br><span class="line">        long id = MyApplication.getApplication().getDaoSession().insert(new Person(0, &quot;AAA&quot;));</span><br><span class="line"></span><br><span class="line">        long id2 = MyApplication.getApplication().getDaoSession().insert(new Person(1, &quot;BBB&quot;));</span><br><span class="line"></span><br><span class="line">        MyApplication.getApplication().getDaoSession().update(new Person(0,&quot;AAA2&quot;));</span><br><span class="line"></span><br><span class="line">        MyApplication.getApplication().getDaoSession().delete(new Person(1,&quot;BBB&quot;));</span><br><span class="line"></span><br><span class="line">        List&lt;Person&gt; people = MyApplication.getApplication().getDaoSession().loadAll(Person.class);</span><br><span class="line"></span><br><span class="line">        for(Person p : people)&#123;</span><br><span class="line">            Log.e(&quot;Cml&quot;,&quot;person --&gt;id: &quot;+p.getId()+&quot;, name: &quot;+p.getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>至此dao的简单使用就完成了.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/database/" rel="tag"># database</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/05/Android-Developer-Learn-Kotlin/" rel="next" title="Android Developer Learn Kotlin">
+                <i class="fa fa-chevron-left"></i> Android Developer Learn Kotlin
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars1.githubusercontent.com/u/13469575?s=460&v=4"
+                alt="cml" />
+            
+              <p class="site-author-name" itemprop="name">cml</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-SQLite"><span class="nav-number">1.</span> <span class="nav-text">Android SQLite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GrennDao-的使用"><span class="nav-number">2.</span> <span class="nav-text">GrennDao 的使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cml</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
