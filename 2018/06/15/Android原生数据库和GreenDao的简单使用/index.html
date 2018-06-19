@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="为什么要写这个文章呢,主要目的是做一个记录. 因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.当再需要用的时候,又得去查查查,浪费时间. Android SQLite1.创建SQLiteOpenHelper的子类 直接上代码 别看一丢代码就头大,其实这段代码比较简单,就是一个继承了 SQLiteOpenHelper的子类,有一个四个参数的构造器,然后实现了onCreate()和onUpg">
+<meta name="description" content="为什么要写这个文章呢,主要目的是做一个记录. 因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.当再需要用的时候,又得去查查查,浪费时间. Android SQLite1.创建SQLiteOpenHelper的子类">
 <meta name="keywords" content="database">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android原生数据库和GreenDao的简单使用">
 <meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2018/06/15/Android原生数据库和GreenDao的简单使用/index.html">
 <meta property="og:site_name" content="陈明亮的 Blog">
-<meta property="og:description" content="为什么要写这个文章呢,主要目的是做一个记录. 因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.当再需要用的时候,又得去查查查,浪费时间. Android SQLite1.创建SQLiteOpenHelper的子类 直接上代码 别看一丢代码就头大,其实这段代码比较简单,就是一个继承了 SQLiteOpenHelper的子类,有一个四个参数的构造器,然后实现了onCreate()和onUpg">
+<meta property="og:description" content="为什么要写这个文章呢,主要目的是做一个记录. 因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.当再需要用的时候,又得去查查查,浪费时间. Android SQLite1.创建SQLiteOpenHelper的子类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-15T09:25:01.954Z">
+<meta property="og:updated_time" content="2018-06-19T03:36:38.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android原生数据库和GreenDao的简单使用">
-<meta name="twitter:description" content="为什么要写这个文章呢,主要目的是做一个记录. 因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.当再需要用的时候,又得去查查查,浪费时间. Android SQLite1.创建SQLiteOpenHelper的子类 直接上代码 别看一丢代码就头大,其实这段代码比较简单,就是一个继承了 SQLiteOpenHelper的子类,有一个四个参数的构造器,然后实现了onCreate()和onUpg">
+<meta name="twitter:description" content="为什么要写这个文章呢,主要目的是做一个记录. 因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.当再需要用的时候,又得去查查查,浪费时间. Android SQLite1.创建SQLiteOpenHelper的子类">
 
 
 
@@ -333,6 +333,7 @@
         <p>为什么要写这个文章呢,主要目的是做一个记录.</p>
 <p>因为如果项目中如果用不到数据库的话,基本过段时间就忘记了.<br>当再需要用的时候,又得去查查查,浪费时间.</p>
 <h2 id="Android-SQLite"><a href="#Android-SQLite" class="headerlink" title="Android SQLite"></a>Android SQLite</h2><p><strong>1.创建SQLiteOpenHelper的子类</strong></p>
+<a id="more"></a>
 <p>直接上代码</p>
 <p>别看一丢代码就头大,其实这段代码比较简单,就是一个继承了 SQLiteOpenHelper的子类,有一个四个参数的构造器,然后实现了<code>onCreate()</code>和<code>onUpgrade()</code>两个方法,至于这两个方法的作用,代码中已经有相应的注释了.</p>
 <p>至于内部类 Builder, 相信知道建造者模式的一看就明白了.这只是为了创建实例的时候方便而已,不用也可以.</p>
