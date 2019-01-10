@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="这一文来看看观察者模式 我们从一个警察和小偷的故事的角度来看. 那么很显然 警察:观察者功能:能看到被观察的小偷的所有动作 小偷:被观察者功能:    1.被安装监视器    2.发现监视器,扔掉监视器    3.没有发现监视器,一举一动被监视 好,我们来上代码 123456789101112131415/** * 观察者 * * 当被观察者有动作的时候能收到消息 * * 如警察抓小偷. * *">
+<meta name="description" content="这一文来看看观察者模式 我们从一个警察和小偷的故事的角度来看. 那么很显然 警察:观察者功能:能看到被观察的小偷的所有动作 小偷:被观察者功能:    1.被安装监视器    2.发现监视器,扔掉监视器    3.没有发现监视器,一举一动被监视 好,我们来上代码">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content=" 观察者模式">
 <meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2018/07/18/观察者模式/index.html">
 <meta property="og:site_name" content="陈明亮的 Blog">
-<meta property="og:description" content="这一文来看看观察者模式 我们从一个警察和小偷的故事的角度来看. 那么很显然 警察:观察者功能:能看到被观察的小偷的所有动作 小偷:被观察者功能:    1.被安装监视器    2.发现监视器,扔掉监视器    3.没有发现监视器,一举一动被监视 好,我们来上代码 123456789101112131415/** * 观察者 * * 当被观察者有动作的时候能收到消息 * * 如警察抓小偷. * *">
+<meta property="og:description" content="这一文来看看观察者模式 我们从一个警察和小偷的故事的角度来看. 那么很显然 警察:观察者功能:能看到被观察的小偷的所有动作 小偷:被观察者功能:    1.被安装监视器    2.发现监视器,扔掉监视器    3.没有发现监视器,一举一动被监视 好,我们来上代码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-18T09:55:13.563Z">
+<meta property="og:updated_time" content="2019-01-10T14:42:43.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" 观察者模式">
-<meta name="twitter:description" content="这一文来看看观察者模式 我们从一个警察和小偷的故事的角度来看. 那么很显然 警察:观察者功能:能看到被观察的小偷的所有动作 小偷:被观察者功能:    1.被安装监视器    2.发现监视器,扔掉监视器    3.没有发现监视器,一举一动被监视 好,我们来上代码 123456789101112131415/** * 观察者 * * 当被观察者有动作的时候能收到消息 * * 如警察抓小偷. * *">
+<meta name="twitter:description" content="这一文来看看观察者模式 我们从一个警察和小偷的故事的角度来看. 那么很显然 警察:观察者功能:能看到被观察的小偷的所有动作 小偷:被观察者功能:    1.被安装监视器    2.发现监视器,扔掉监视器    3.没有发现监视器,一举一动被监视 好,我们来上代码">
 
 
 
@@ -336,6 +336,7 @@
 <p><strong>警察</strong>:观察者<br><br><strong>功能</strong>:能看到被观察的小偷的所有动作</p>
 <p><strong>小偷</strong>:被观察者<br><br><strong>功能</strong>:<br><br>    1.被安装监视器<br><br>    2.发现监视器,扔掉监视器<br><br>    3.没有发现监视器,一举一动被监视<br></p>
 <p>好,我们来上代码</p>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 观察者</span><br><span class="line"> *</span><br><span class="line"> * 当被观察者有动作的时候能收到消息</span><br><span class="line"> *</span><br><span class="line"> * 如警察抓小偷.</span><br><span class="line"> *</span><br><span class="line"> * 功能:</span><br><span class="line"> *      1.看到小偷的动作</span><br><span class="line"> */</span><br><span class="line">public interface Watcher &#123;</span><br><span class="line"></span><br><span class="line">    void update();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 被观察者</span><br><span class="line"> *</span><br><span class="line"> *</span><br><span class="line"> * 如警察抓小偷,被观察者就是小偷</span><br><span class="line"> *</span><br><span class="line"> * 功能:</span><br><span class="line"> *      1.小偷身上可以放置监视器</span><br><span class="line"> *      2.若小偷发现身上有监视器,肯定会拿掉</span><br><span class="line"> *      3.若小偷没有发现身上有监视器,那么自己的动作会被所有监视的人看到</span><br><span class="line"> */</span><br><span class="line">public interface Watched &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 放置监视器</span><br><span class="line">     * @param watcher 警察</span><br><span class="line">     */</span><br><span class="line">    void addWatcher(Watcher watcher);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 发现监视器,扔掉</span><br><span class="line">     * @param watcher</span><br><span class="line">     */</span><br><span class="line">    void removeWatcher(Watcher watcher);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 偷东西的动作被看到</span><br><span class="line">     */</span><br><span class="line">    void notifyAllWatcher();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 实际的警察</span><br><span class="line"> */</span><br><span class="line">public class CWatcher implements Watcher &#123;</span><br><span class="line"></span><br><span class="line">    private String watcherFirstName;</span><br><span class="line"></span><br><span class="line">    public CWatcher(String firstName)&#123;</span><br><span class="line">        this.watcherFirstName = firstName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void update() &#123;</span><br><span class="line">        System.out.println(&quot;我是&quot;+watcherFirstName+&quot;警察,我看到小偷偷东西了&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -383,6 +384,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/19/个人总结和反思/" rel="prev" title=" 个人总结和反思">
+                 个人总结和反思 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,7 +460,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -468,7 +473,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -505,7 +510,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
