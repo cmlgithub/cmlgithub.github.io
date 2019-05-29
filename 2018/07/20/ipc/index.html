@@ -86,10 +86,13 @@
 <meta property="og:site_name" content="陈明亮的 Blog">
 <meta property="og:description" content="Binder从以下几个方面来看 binder Android : 中的一个类,实现了 IBinder 接口 IPC :     是 Android 中跨进程通信的一种方式 Framework:Binder 是 ServiceManager 连接各种 Manager(ActivityManager WindowManager …)和相应 ManagerService 的桥梁 Android 应用层:">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-20T03:13:15.884Z">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/07/20/ipc/package.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/07/20/ipc/binder.png">
+<meta property="og:updated_time" content="2019-05-29T07:20:40.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ipc">
 <meta name="twitter:description" content="Binder从以下几个方面来看 binder Android : 中的一个类,实现了 IBinder 接口 IPC :     是 Android 中跨进程通信的一种方式 Framework:Binder 是 ServiceManager 连接各种 Manager(ActivityManager WindowManager …)和相应 ManagerService 的桥梁 Android 应用层:">
+<meta name="twitter:image" content="https://cmlgithub.github.io/2018/07/20/ipc/package.png">
 
 
 
@@ -335,6 +338,218 @@
 <p><code>Framework</code>:Binder 是 ServiceManager 连接各种 Manager(ActivityManager WindowManager …)和相应 ManagerService 的桥梁<br></p>
 <p><code>Android 应用层</code>:Binder 是客户端和服务端进行通信的媒介,当bindService 的时候,服务端会返回一个包含了服务端业务调用的 Binder 对象,通过这个 Binder 对象,客户端就可以获取服务端提供的服务(包括普通服务和 AIDL 服务)或者数据</p>
 <p><code>设备</code>: 可以理解为一种虚拟的物理设备,设备驱动是/dev/binder,该通信方式在 Linux 中没有</p>
+<p><strong>通过 AIDL来看 Binder 的工作机制</strong></p>
+<p>先看示例类在包中的位置</p>
+<p><img src="/2018/07/20/ipc/package.png" alt=""></p>
+<p>示例类</p>
+<p>Book.aidl</p>
+<pre><code>package com.cml.cmlapplication.ipc;
+parcelable Book;
+</code></pre><p>IBookManager.aidl</p>
+<pre><code>package com.cml.cmlapplication.ipc;
+import com.cml.cmlapplication.ipc.Book;
+interface IBookManager {
+    List&lt;Book&gt; getBookList();
+    void addBook(in Book book);
+}
+</code></pre><p>Book.java    </p>
+<pre><code>import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Book implements Parcelable {
+
+private int bookId;
+private String bookName;
+
+public Book(int bookId, String bookName) {
+    this.bookId = bookId;
+    this.bookName = bookName;
+}
+
+protected Book(Parcel in) {
+    bookId = in.readInt();
+    bookName = in.readString();
+}
+
+public static final Creator&lt;Book&gt; CREATOR = new Creator&lt;Book&gt;() {
+    @Override
+    public Book createFromParcel(Parcel in) {
+        return new Book(in);
+    }
+
+    @Override
+    public Book[] newArray(int size) {
+        return new Book[size];
+    }
+};
+
+@Override
+public int describeContents() {
+    return 0;
+}
+
+@Override
+public void writeToParcel(Parcel dest, int flags) {
+    dest.writeInt(bookId);
+    dest.writeString(bookName);
+}
+}
+</code></pre><p>然后编译后,系统会自动生成一个类,位于: <strong>build/generated/source/aidl/…/IBookManager.java</strong></p>
+<p>我们就分析这个类基本就可了解 Binder上层工作机制.</p>
+<p>这个类如下</p>
+<p>IBookManager.java</p>
+<pre><code>public interface IBookManager extends android.os.IInterface {
+
+//stub 是一个 binder
+public static abstract class Stub extends android.os.Binder implements com.cml.cmlapplication.ipc.IBookManager{
+
+    //binder 的唯一标识
+    private static final java.lang.String DESCRIPTOR = &quot;com.cml.cmlapplication.ipc.IBookManager&quot;;
+
+    public Stub(){
+        this.attachInterface(this, DESCRIPTOR);
+    }
+
+    /**
+     * 用于将服务端的 Binder 对象转换成客户端所需的 AIDL接口类型对象
+     * 同进程：     服务端对象本身
+     * 不同进程：   系统封装后的 Stub.proxy
+     */
+    public static com.cml.cmlapplication.ipc.IBookManager asInterface(android.os.IBinder obj) {
+        if ((obj==null)) {
+            return null;
+        }
+        android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
+        if (((iin!=null)&amp;&amp;(iin instanceof com.cml.cmlapplication.ipc.IBookManager))) {
+            return ((com.cml.cmlapplication.ipc.IBookManager)iin);
+        }
+        return new com.cml.cmlapplication.ipc.IBookManager.Stub.Proxy(obj);
+    }
+
+    /**
+     * 提供 Binder 对象
+     */
+    @Override public android.os.IBinder asBinder() {
+        return this;
+    }
+
+    /**
+     * 运行位置：服务端的 Binder 线程池
+     * 客户端发起跨进程的请求时，远程请求会通过底层封装后交由此方法处理。
+     *
+     * 方法内部通过 code 来确定客户端的请求目标方法
+     * 从 data 中获取参数
+     * 执行目标方法
+     * 将返回值写入 reply 并返回
+     */
+    @Override public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
+        switch (code) {
+            case INTERFACE_TRANSACTION: {
+                reply.writeString(DESCRIPTOR);
+                return true;
+            }
+            case TRANSACTION_getBookList: {
+                data.enforceInterface(DESCRIPTOR);
+                java.util.List&lt;com.cml.cmlapplication.ipc.Book&gt; _result = this.getBookList();
+                reply.writeNoException();
+                reply.writeTypedList(_result);
+                return true;
+            }
+            case TRANSACTION_addBook: {
+                data.enforceInterface(DESCRIPTOR);
+                com.cml.cmlapplication.ipc.Book _arg0;
+                if ((0!=data.readInt())) {
+                    _arg0 = com.cml.cmlapplication.ipc.Book.CREATOR.createFromParcel(data);
+                }
+                else {
+                    _arg0 = null;
+                }
+                this.addBook(_arg0);
+                reply.writeNoException();
+                return true;
+            }
+        }
+        return super.onTransact(code, data, reply, flags);
+    }
+
+    private static class Proxy implements com.cml.cmlapplication.ipc.IBookManager {
+
+        private android.os.IBinder mRemote;
+
+        Proxy(android.os.IBinder remote) {
+            mRemote = remote;
+        }
+
+        @Override public android.os.IBinder asBinder() {
+            return mRemote;
+        }
+
+        public java.lang.String getInterfaceDescriptor() {
+            return DESCRIPTOR;
+        }
+
+        /**
+         * 运行位置：客户端
+         *
+         * 客户端远程调用此方法时，首先创建_data、_reply 和_result(List)
+         * 然后将参数写入_data,随后调用 transact()发起远程调用请求并挂起当前线程,
+         * 此时服务端的 onTransact()方法被调用,直到远程调用返回后,当前线程继续运行并从_reply 中获取返回结果,最后返回
+         */
+        @Override public java.util.List&lt;com.cml.cmlapplication.ipc.Book&gt; getBookList() throws android.os.RemoteException {
+            android.os.Parcel _data = android.os.Parcel.obtain();
+            android.os.Parcel _reply = android.os.Parcel.obtain();
+            java.util.List&lt;com.cml.cmlapplication.ipc.Book&gt; _result;
+            try {
+                _data.writeInterfaceToken(DESCRIPTOR);
+                mRemote.transact(Stub.TRANSACTION_getBookList, _data, _reply, 0);
+                _reply.readException();
+                _result = _reply.createTypedArrayList(com.cml.cmlapplication.ipc.Book.CREATOR);
+            }
+            finally {
+                _reply.recycle();
+                _data.recycle();
+            }
+            return _result;
+        }
+
+        @Override public void addBook(com.cml.cmlapplication.ipc.Book book) throws android.os.RemoteException {
+            android.os.Parcel _data = android.os.Parcel.obtain();
+            android.os.Parcel _reply = android.os.Parcel.obtain();
+            try {
+                _data.writeInterfaceToken(DESCRIPTOR);
+                if ((book!=null)) {
+                    _data.writeInt(1);
+                    book.writeToParcel(_data, 0);
+                }
+                else {
+                    _data.writeInt(0);
+                }
+                mRemote.transact(Stub.TRANSACTION_addBook, _data, _reply, 0);
+                _reply.readException();
+            }
+            finally {
+                _reply.recycle();
+                _data.recycle();
+            }
+        }
+    }
+
+    static final int TRANSACTION_getBookList = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+    static final int TRANSACTION_addBook = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
+}
+
+public java.util.List&lt;com.cml.cmlapplication.ipc.Book&gt; getBookList() throws android.os.RemoteException;
+public void addBook(com.cml.cmlapplication.ipc.Book book) throws android.os.RemoteException;
+}
+</code></pre><p>类中的注释比较详细了,这里说一下其整体的工作流程</p>
+<p>首先客户端发起远程调用通过getBookList(),此方法内部会调用 transact() , 同时当前的线程挂起,等待返回结果,然后此远程调用请求通过系统底层的封装后会走到运行在服务端 Binder 线程池的方法 onTransact()此方法执行完之后会返回结果_reply,此时返回客户端,继续运行被挂起的线程,从_reply 中取出返回结果,并返回.远程调用过程结束.</p>
+<p>一张图看 Binder 的工作机制  <font size="1.5"> 摘自  Android 开发艺术探索 </font></p>
+<p><img src="/2018/07/20/ipc/binder.png" alt="">    </p>
+<p><strong>Android 中的 IPC 方式</strong></p>
+<p>1.Bundle</p>
+<p>Android 的四大组件中的三个组件:Activity/Service 和 BorderCastReceiver都支持在 Intent 中使用 Bundle 传递数据,因为 Bundle实现了 Parceable 接口所以可以方便的在进程之间传输.当然所要传输的数据必须可以被序列化才行.</p>
+<p>2.使用文件共享</p>
+<p>两个进程通过读/写</p>
 
       
     </div>
@@ -444,7 +659,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

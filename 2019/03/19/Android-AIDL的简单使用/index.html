@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -79,13 +79,21 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈明亮的 Blog">
-<meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/archives/2018/index.html">
+<meta name="description" content="### 目的这篇文章主要是 Android 中 AIDL 的简单使用,算是为了下一篇 Android IPC 做一个铺垫### 背景Android 中的 AIDL 主要是用来做 Android IPC(进程间的通信)的.可以说是系统帮我们封装好的一个工具.1.多进程的实现  既然是进程间的通信肯定就要有两个进程. 这里为了方便两个进程在同一个 app 中来实现,其本质和两个 app 是一样一样的.">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-AIDL的简单使用">
+<meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2019/03/19/Android-AIDL的简单使用/index.html">
 <meta property="og:site_name" content="陈明亮的 Blog">
+<meta property="og:description" content="### 目的这篇文章主要是 Android 中 AIDL 的简单使用,算是为了下一篇 Android IPC 做一个铺垫### 背景Android 中的 AIDL 主要是用来做 Android IPC(进程间的通信)的.可以说是系统帮我们封装好的一个工具.1.多进程的实现  既然是进程间的通信肯定就要有两个进程. 这里为了方便两个进程在同一个 app 中来实现,其本质和两个 app 是一样一样的.">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cmlgithub.github.io/2019/03/19/Android-AIDL的简单使用/aidl1.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2019/03/19/Android-AIDL的简单使用/aidl2.png">
+<meta property="og:updated_time" content="2019-03-18T23:40:16.697Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈明亮的 Blog">
+<meta name="twitter:title" content="Android-AIDL的简单使用">
+<meta name="twitter:description" content="### 目的这篇文章主要是 Android 中 AIDL 的简单使用,算是为了下一篇 Android IPC 做一个铺垫### 背景Android 中的 AIDL 主要是用来做 Android IPC(进程间的通信)的.可以说是系统帮我们封装好的一个工具.1.多进程的实现  既然是进程间的通信肯定就要有两个进程. 这里为了方便两个进程在同一个 app 中来实现,其本质和两个 app 是一样一样的.">
+<meta name="twitter:image" content="https://cmlgithub.github.io/2019/03/19/Android-AIDL的简单使用/aidl1.png">
 
 
 
@@ -115,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://cmlgithub.github.io##定义网站访问的域名/archives/2018/"/>
+  <link rel="canonical" href="https://cmlgithub.github.io##定义网站访问的域名/2019/03/19/Android-AIDL的简单使用/"/>
 
 
 
 
 
-  <title>归档 | 陈明亮的 Blog</title>
+  <title>Android-AIDL的简单使用 | 陈明亮的 Blog</title>
   
 
 
@@ -150,7 +158,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,411 +252,188 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cmlgithub.github.io##定义网站访问的域名/2019/03/19/Android-AIDL的简单使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cml">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/13469575?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈明亮的 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Android-AIDL的简单使用</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-19T06:59:09+08:00">
+                2019-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 21 篇日志。 继续努力。
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/20/ipc/" itemprop="url">
-              
-                <span itemprop="name">ipc</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-20T10:02:35+08:00"
-              content="2018-07-20" >
-          07-20
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/18/观察者模式/" itemprop="url">
-              
-                <span itemprop="name"> 观察者模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-18T17:43:40+08:00"
-              content="2018-07-18" >
-          07-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <font size="3"><br><br>### 目的<br><br>这篇文章主要是 Android 中 AIDL 的简单使用,算是为了下一篇 Android IPC 做一个铺垫<br><br>### 背景<br><br>Android 中的 AIDL 主要是用来做 Android IPC(进程间的通信)的.可以说是系统帮我们封装好的一个工具.<br><br><font size="4">1.多进程的实现</font>
 
-        
-        
+<p>既然是进程间的通信肯定就要有两个进程.</p>
+<p>这里为了方便两个进程在同一个 app 中来实现,其本质和两个 app 是一样一样的.</p>
+<p>要想在 app 中启用多线程,只有一种方式,那就是为 Android 的<strong>四大组件指定 <font color="red">process</font></strong>属性.</p>
+<p>process的属性值要怎么写呢?</p>
+<p><img src="/2019/03/19/Android-AIDL的简单使用/aidl1.png" alt=""></p>
+<p>只有图中的两种方式</p>
+<pre><code>1.冒号+单词(字母也可以)
 
-        
+2.包名+点(英文中的句号)+单词(字母也可以)
+</code></pre><font size="4">2.序列化</font>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>在 Android 中实现序列化有两种方式</p>
+<p>2.1 Serializable (java 中的序列化方式)</p>
+<p>看一个典型的例子</p>
+<p><img src="/2019/03/19/Android-AIDL的简单使用/aidl2.png" alt=""></p>
+<p>可以看到非常简单,只需要实现 Serializable 接口就可以了.</p>
+<p>那么怎么序列化和反序列化呢?</p>
+<p>也非常简单</p>
+<pre><code>Book book = new Book(&quot;1&quot;, &quot;Android&quot;);
+try {
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(&quot;android.txt&quot;));
+        out.writeObject(book);
+        out.close();
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/06/Android常见内存泄漏/" itemprop="url">
-              
-                <span itemprop="name">Android常见内存泄漏</span>
-              
-            </a>
-        
-      </h2>
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(&quot;android.txt&quot;));
+        Book newBook = (Book) in.readObject();
+        in.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+</code></pre><p>上面的代码是以本地文件为媒介实现的序列化和反序列化.</p>
+<p>但是有一点需要注意</p>
+<font size="3" color="red">虽然 book 和 newbook 的内容完全一样,但是两者并不是同一个对象了.</font>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-06T09:56:59+08:00"
-              content="2018-07-06" >
-          07-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<p>这里还有一个要提一下,可能有眼尖的童鞋已经发现了.就是 serialVersionUID 是干什么呢.</p>
+<p>serialVersionUID 即使不指定也是可以实现序列化的.那还写它干什么呢?</p>
+<p>且听我慢慢道来</p>
+<p></p></font><p></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/19/Android-Developer-Learn-Kotlin/" itemprop="url">
-              
-                <span itemprop="name">Android Developer Learn Kotlin</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-19T12:47:45+08:00"
-              content="2018-06-19" >
-          06-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/15/Android原生数据库和GreenDao的简单使用/" itemprop="url">
-              
-                <span itemprop="name">Android原生数据库和GreenDao的简单使用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-15T16:29:01+08:00"
-              content="2018-06-15" >
-          06-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/29/插件化组件化等概念对比/" itemprop="url">
-              
-                <span itemprop="name">插件化组件化等概念对比</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-29T17:29:00+08:00"
-              content="2018-05-29" >
-          05-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/29/Android-ClassLoader/" itemprop="url">
-              
-                <span itemprop="name">Android_ClassLoader</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-29T14:40:49+08:00"
-              content="2018-05-29" >
-          05-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/29/Java-虚拟机-VS-Android-虚拟机/" itemprop="url">
-              
-                <span itemprop="name">Java 虚拟机 VS Android  虚拟机</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-29T14:35:15+08:00"
-              content="2018-05-29" >
-          05-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/09/jvm-之垃圾回收/" itemprop="url">
-              
-                <span itemprop="name">JVM 之垃圾回收</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-09T14:55:53+08:00"
-              content="2018-05-09" >
-          05-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/09/JAVA-虚拟机-JVM/" itemprop="url">
-              
-                <span itemprop="name">JAVA 虚拟机 JVM</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-09T09:13:16+08:00"
-              content="2018-05-09" >
-          05-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/26/从AsyncTask开始来看Android中的线程和线程池/" rel="next" title="从AsyncTask开始来看Android中的线程和线程池">
+                <i class="fa fa-chevron-left"></i> 从AsyncTask开始来看Android中的线程和线程池
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2018/page/2/">2</a><a class="extend next" rel="next" href="/archives/2018/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -656,6 +441,10 @@
 
 
           
+
+  
+
+
 
 
         </div>
@@ -873,6 +662,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
