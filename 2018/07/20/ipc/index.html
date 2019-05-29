@@ -88,7 +88,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/07/20/ipc/package.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/07/20/ipc/binder.png">
-<meta property="og:updated_time" content="2019-05-29T07:20:40.992Z">
+<meta property="og:updated_time" content="2019-05-29T07:56:44.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ipc">
 <meta name="twitter:description" content="Binder从以下几个方面来看 binder Android : 中的一个类,实现了 IBinder 接口 IPC :     是 Android 中跨进程通信的一种方式 Framework:Binder 是 ServiceManager 连接各种 Manager(ActivityManager WindowManager …)和相应 ManagerService 的桥梁 Android 应用层:">
@@ -549,7 +549,14 @@ public void addBook(com.cml.cmlapplication.ipc.Book book) throws android.os.Remo
 <p>1.Bundle</p>
 <p>Android 的四大组件中的三个组件:Activity/Service 和 BorderCastReceiver都支持在 Intent 中使用 Bundle 传递数据,因为 Bundle实现了 Parceable 接口所以可以方便的在进程之间传输.当然所要传输的数据必须可以被序列化才行.</p>
 <p>2.使用文件共享</p>
-<p>两个进程通过读/写</p>
+<p>两个进程通过读/写同一个文件来交换数据</p>
+<p>3.Messenger </p>
+<p>信使,其底层实现也是 AIDL</p>
+<p>4.AIDL</p>
+<p>工作机制见上面的 Binder 工作机制分析</p>
+<p>5.ContentProvider</p>
+<p>是 Android 中专门用来不同应用之前交换数据的.其底层也是通过 Binder 来实现的.</p>
+<p>6.Socket</p>
 
       
     </div>
