@@ -89,8 +89,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader/DexClassLoader.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader/PathClassLoader.png">
-<meta property="og:image" content="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader/classLoader.png">
-<meta property="og:updated_time" content="2018-05-29T09:41:32.143Z">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/29/Android-ClassLoader/classloader.png">
+<meta property="og:updated_time" content="2019-05-30T02:30:23.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android_ClassLoader">
 <meta name="twitter:description" content="1.关于 Android ClassLoader基本原理跟 Java ClassLoader 相同. 所以在理解了 Java ClassLoader 的情况下,看 Android 的 ClassLoader 就比较简单了 若有不了解 Java ClassLoader 建议先去看看 Java 虚拟机这篇文章">
@@ -357,7 +357,7 @@
 <h2 id="BaseDexClassLoader"><a href="#BaseDexClassLoader" class="headerlink" title="BaseDexClassLoader"></a>BaseDexClassLoader</h2><p>这是 DexClassLoader 和 PathClassLoader 的父类,所有的工作都是在这个类里面完成的</p>
 <p>而这个类主要的方法就是findClass(String name).</p>
 <p>而 findClass(String name) 的整个实现过程(调用链)如下图</p>
-<p><img src="/2018/05/29/Android-ClassLoader/classLoader.png" alt=""></p>
+<p><img src="/2018/05/29/Android-ClassLoader/classloader.png" alt=""></p>
 <p>可以知道最后是通过一个 native 方法实现了加载</p>
 
       
@@ -483,7 +483,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
