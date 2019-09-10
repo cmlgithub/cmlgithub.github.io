@@ -91,9 +91,9 @@
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/url1.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/url2.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/form.jpeg">
-<meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/jsBridge1.jpg">
-<meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/jsBridge2.jpg">
-<meta property="og:updated_time" content="2019-09-10T09:54:12.753Z">
+<meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/jsBridge1.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/jsBridge2.png">
+<meta property="og:updated_time" content="2019-09-10T10:02:54.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jsBridge">
 <meta name="twitter:description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;">
@@ -396,9 +396,9 @@ webView.addJavascriptInterface(new JsInteration(),&quot;android&quot;);
 <p>JS中的alert、console方法都会在Html页面比较常用，confirm和prompt虽然不常用但是某些手机系统版本上会有对话框弹出，不通用.</p>
 <p>比较好的选择是url拦截，可以通过iframe.src触发shouldOverrideUrlLoading.</p>
 <h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p>从 java 看</p>
-<p><img src="/2019/09/02/jsBridge/jsBridge1.jpg" alt=""></p>
+<p><img src="/2019/09/02/jsBridge/jsBridge1.png" alt=""></p>
 <p>从 js 看</p>
-<p><img src="/2019/09/02/jsBridge/jsBridge2.jpg" alt=""></p>
+<p><img src="/2019/09/02/jsBridge/jsBridge2.png" alt=""></p>
 <p>在H5页面加载完毕注入一个本地的js文件；</p>
 <p>Java代码中注册BridgeHandler，用来处理JS发送过来的消息；</p>
 <p>在本地注入的js文件中定义_handleMessageFromNative，用来接收java传递过来的消息；</p>

@@ -389,9 +389,9 @@ webView.addJavascriptInterface(new JsInteration(),&quot;android&quot;);
 <p>JS中的alert、console方法都会在Html页面比较常用，confirm和prompt虽然不常用但是某些手机系统版本上会有对话框弹出，不通用.</p>
 <p>比较好的选择是url拦截，可以通过iframe.src触发shouldOverrideUrlLoading.</p>
 <h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p>从 java 看</p>
-<p><img src="/2019/09/02/jsBridge/jsBridge1.jpg" alt=""></p>
+<p><img src="/2019/09/02/jsBridge/jsBridge1.png" alt=""></p>
 <p>从 js 看</p>
-<p><img src="/2019/09/02/jsBridge/jsBridge2.jpg" alt=""></p>
+<p><img src="/2019/09/02/jsBridge/jsBridge2.png" alt=""></p>
 <p>在H5页面加载完毕注入一个本地的js文件；</p>
 <p>Java代码中注册BridgeHandler，用来处理JS发送过来的消息；</p>
 <p>在本地注入的js文件中定义_handleMessageFromNative，用来接收java传递过来的消息；</p>
