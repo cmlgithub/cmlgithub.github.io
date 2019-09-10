@@ -79,23 +79,25 @@
 
 
 
-<meta name="description" content="1.优缺点优点 : 提高了效率,一个前端页面可以同时运行在前端和移动端.更新页面不用经过打包–&amp;gt;发布这样的流程 缺点 : 要求网络,对事件(点击/滑动等)的响应不如原生的流畅 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;javascript:alertMsg(&amp;quot; + &amp;quot;&amp;#">
+<meta name="description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jsBridge">
 <meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2019/09/02/jsBridge/index.html">
 <meta property="og:site_name" content="陈明亮的 Blog">
-<meta property="og:description" content="1.优缺点优点 : 提高了效率,一个前端页面可以同时运行在前端和移动端.更新页面不用经过打包–&amp;gt;发布这样的流程 缺点 : 要求网络,对事件(点击/滑动等)的响应不如原生的流畅 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;javascript:alertMsg(&amp;quot; + &amp;quot;&amp;#">
+<meta property="og:description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/web4.2.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/url1.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/url2.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/form.jpeg">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/jsBridge1.jpg">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/jsBridge2.jpg">
-<meta property="og:updated_time" content="2019-09-04T07:30:13.824Z">
+<meta property="og:updated_time" content="2019-09-10T09:54:12.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jsBridge">
-<meta name="twitter:description" content="1.优缺点优点 : 提高了效率,一个前端页面可以同时运行在前端和移动端.更新页面不用经过打包–&amp;gt;发布这样的流程 缺点 : 要求网络,对事件(点击/滑动等)的响应不如原生的流畅 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;javascript:alertMsg(&amp;quot; + &amp;quot;&amp;#">
-<meta name="twitter:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/url1.png">
+<meta name="twitter:description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;">
+<meta name="twitter:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/web4.2.png">
 
 
 
@@ -335,8 +337,14 @@
       
 
       
-        <h2 id="1-优缺点"><a href="#1-优缺点" class="headerlink" title="1.优缺点"></a>1.优缺点</h2><p><code>优点</code> : 提高了效率,一个前端页面可以同时运行在前端和移动端.更新页面不用经过打包–&gt;发布这样的流程</p>
-<p><code>缺点</code> : 要求网络,对事件(点击/滑动等)的响应不如原生的流畅</p>
+        <h1 id="apk-和-H5-混合"><a href="#apk-和-H5-混合" class="headerlink" title="apk 和 H5 混合"></a>apk 和 H5 混合</h1><h2 id="1-汇总"><a href="#1-汇总" class="headerlink" title="1.汇总"></a>1.汇总</h2><p>jsbridge 是 java 和 js 之间的一个桥梁</p>
+<p>最主要的就是 <strong>两端的通信</strong></p>
+<p>安全</p>
+<p>效率</p>
+<p>覆盖率</p>
+<h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p>1.漏洞问题</p>
+<p>2.代码繁琐问题</p>
+<p>3.android 接收 js 的回调只支持 android4.4 以上的版本</p>
 <h2 id="2-本质问题"><a href="#2-本质问题" class="headerlink" title="2.本质问题"></a>2.本质问题</h2><p><strong>1. java 调用 js</strong></p>
 <p><strong>2. js 调用 java</strong></p>
 <h2 id="原生调用方式"><a href="#原生调用方式" class="headerlink" title="原生调用方式"></a>原生调用方式</h2><h3 id="java-调用-js"><a href="#java-调用-js" class="headerlink" title="java 调用 js"></a>java 调用 js</h3><p><code>webView.loadUrl(&quot;javascript:alertMsg(&quot; + &quot;&#39;Android传过来的参数&#39;&quot; + &quot;)&quot;)</code></p>
@@ -347,8 +355,6 @@
 }
 </code></pre><h3 id="js-调用-java"><a href="#js-调用-java" class="headerlink" title="js 调用 java"></a>js 调用 java</h3><p>有三种方式 : 对象映射,URL 拦截,js 方法拦截</p>
 <p>1.<strong>对象映射</strong></p>
-<p>在 Android 中</p>
-<p><code>webview.addJavascriptInterface(new JSObject(), “javaObject”)</code></p>
 <p>就可以在 js 中直接调用 javaObject对象,从而实现此功能.但是此方法在 android4.2 下有安全漏洞,可以利用反射机制调用 android api getRuntime 执行 shell 命令攻击(遍历sdcard、发送短信、安装木马APK等)</p>
 <p>android </p>
 <pre><code>public  class  JsInteration  {
@@ -361,7 +367,10 @@
 webView.addJavascriptInterface(new JsInteration(),&quot;android&quot;);
 </code></pre><p>js</p>
 <pre><code>window.android.back();
-</code></pre><p>2.<strong>url 拦截</strong></p>
+</code></pre><p>这是一次交互,如果是N次呢?</p>
+<p>攻击代码</p>
+<p><img src="/2019/09/02/jsBridge/web4.2.png" alt=""></p>
+<p>2.<strong>url 拦截</strong></p>
 <p>通过iframe.src、window.open、documention.location或者href，这四种方法都可以在html页面中打开一个连接，从而会触发Java中的WebViewClient.shouldOverrideUrlLoading方法. </p>
 <p>例如:js 中执行<br><img src="/2019/09/02/jsBridge/url1.png" alt=""></p>
 <p><code>document.location = &#39;http://www.baidu.com/{&quot;data&quot;:{&quot;username&quot;:&quot;tom&quot;}}&#39;</code></p>
@@ -375,6 +384,8 @@ webView.addJavascriptInterface(new JsInteration(),&quot;android&quot;);
 <p>在JS中调用alert、console、prompt、confirm等方法就会触发WebChromeClient的onJsAlert、onConsoleMessage、onJsPrompt、onJsConfirm方法的回调.</p>
 <p><img src="/2019/09/02/jsBridge/url2.png" alt="">
 　    </p>
+<hr>
+<p><img src="/2019/09/02/jsBridge/form.jpeg" alt=""></p>
 <h2 id="JSbridge"><a href="#JSbridge" class="headerlink" title="JSbridge"></a>JSbridge</h2><p><a href="https://github.com/lzyzsd/JsBridge" target="_blank" rel="noopener">Jsbridge github address</a></p>
 <p>它主要解决的问题就两个</p>
 <p><strong>1.回调问题</strong></p>
@@ -558,7 +569,7 @@ webView.addJavascriptInterface(new JsInteration(),&quot;android&quot;);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-优缺点"><span class="nav-number">1.</span> <span class="nav-text">1.优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-本质问题"><span class="nav-number">2.</span> <span class="nav-text">2.本质问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生调用方式"><span class="nav-number">3.</span> <span class="nav-text">原生调用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java-调用-js"><span class="nav-number">3.1.</span> <span class="nav-text">java 调用 js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js-调用-java"><span class="nav-number">3.2.</span> <span class="nav-text">js 调用 java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSbridge"><span class="nav-number">4.</span> <span class="nav-text">JSbridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程图"><span class="nav-number">5.</span> <span class="nav-text">流程图</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#apk-和-H5-混合"><span class="nav-number">1.</span> <span class="nav-text">apk 和 H5 混合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-汇总"><span class="nav-number">1.1.</span> <span class="nav-text">1.汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决的问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">解决的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-本质问题"><span class="nav-number">1.2.</span> <span class="nav-text">2.本质问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生调用方式"><span class="nav-number">1.3.</span> <span class="nav-text">原生调用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java-调用-js"><span class="nav-number">1.3.1.</span> <span class="nav-text">java 调用 js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js-调用-java"><span class="nav-number">1.3.2.</span> <span class="nav-text">js 调用 java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSbridge"><span class="nav-number">1.4.</span> <span class="nav-text">JSbridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程图"><span class="nav-number">1.5.</span> <span class="nav-text">流程图</span></a></li></ol></li></ol></div>
             
 
           </div>

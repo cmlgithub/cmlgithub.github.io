@@ -330,8 +330,14 @@
       
         
           
-            <h2 id="1-优缺点"><a href="#1-优缺点" class="headerlink" title="1.优缺点"></a>1.优缺点</h2><p><code>优点</code> : 提高了效率,一个前端页面可以同时运行在前端和移动端.更新页面不用经过打包–&gt;发布这样的流程</p>
-<p><code>缺点</code> : 要求网络,对事件(点击/滑动等)的响应不如原生的流畅</p>
+            <h1 id="apk-和-H5-混合"><a href="#apk-和-H5-混合" class="headerlink" title="apk 和 H5 混合"></a>apk 和 H5 混合</h1><h2 id="1-汇总"><a href="#1-汇总" class="headerlink" title="1.汇总"></a>1.汇总</h2><p>jsbridge 是 java 和 js 之间的一个桥梁</p>
+<p>最主要的就是 <strong>两端的通信</strong></p>
+<p>安全</p>
+<p>效率</p>
+<p>覆盖率</p>
+<h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p>1.漏洞问题</p>
+<p>2.代码繁琐问题</p>
+<p>3.android 接收 js 的回调只支持 android4.4 以上的版本</p>
 <h2 id="2-本质问题"><a href="#2-本质问题" class="headerlink" title="2.本质问题"></a>2.本质问题</h2><p><strong>1. java 调用 js</strong></p>
 <p><strong>2. js 调用 java</strong></p>
 <h2 id="原生调用方式"><a href="#原生调用方式" class="headerlink" title="原生调用方式"></a>原生调用方式</h2><h3 id="java-调用-js"><a href="#java-调用-js" class="headerlink" title="java 调用 js"></a>java 调用 js</h3><p><code>webView.loadUrl(&quot;javascript:alertMsg(&quot; + &quot;&#39;Android传过来的参数&#39;&quot; + &quot;)&quot;)</code></p>
@@ -342,8 +348,6 @@
 }
 </code></pre><h3 id="js-调用-java"><a href="#js-调用-java" class="headerlink" title="js 调用 java"></a>js 调用 java</h3><p>有三种方式 : 对象映射,URL 拦截,js 方法拦截</p>
 <p>1.<strong>对象映射</strong></p>
-<p>在 Android 中</p>
-<p><code>webview.addJavascriptInterface(new JSObject(), “javaObject”)</code></p>
 <p>就可以在 js 中直接调用 javaObject对象,从而实现此功能.但是此方法在 android4.2 下有安全漏洞,可以利用反射机制调用 android api getRuntime 执行 shell 命令攻击(遍历sdcard、发送短信、安装木马APK等)</p>
 <p>android </p>
 <pre><code>public  class  JsInteration  {
@@ -356,7 +360,10 @@
 webView.addJavascriptInterface(new JsInteration(),&quot;android&quot;);
 </code></pre><p>js</p>
 <pre><code>window.android.back();
-</code></pre><p>2.<strong>url 拦截</strong></p>
+</code></pre><p>这是一次交互,如果是N次呢?</p>
+<p>攻击代码</p>
+<p><img src="/2019/09/02/jsBridge/web4.2.png" alt=""></p>
+<p>2.<strong>url 拦截</strong></p>
 <p>通过iframe.src、window.open、documention.location或者href，这四种方法都可以在html页面中打开一个连接，从而会触发Java中的WebViewClient.shouldOverrideUrlLoading方法. </p>
 <p>例如:js 中执行<br><img src="/2019/09/02/jsBridge/url1.png" alt=""></p>
 <p><code>document.location = &#39;http://www.baidu.com/{&quot;data&quot;:{&quot;username&quot;:&quot;tom&quot;}}&#39;</code></p>
@@ -370,6 +377,8 @@ webView.addJavascriptInterface(new JsInteration(),&quot;android&quot;);
 <p>在JS中调用alert、console、prompt、confirm等方法就会触发WebChromeClient的onJsAlert、onConsoleMessage、onJsPrompt、onJsConfirm方法的回调.</p>
 <p><img src="/2019/09/02/jsBridge/url2.png" alt="">
 　    </p>
+<hr>
+<p><img src="/2019/09/02/jsBridge/form.jpeg" alt=""></p>
 <h2 id="JSbridge"><a href="#JSbridge" class="headerlink" title="JSbridge"></a>JSbridge</h2><p><a href="https://github.com/lzyzsd/JsBridge" target="_blank" rel="noopener">Jsbridge github address</a></p>
 <p>它主要解决的问题就两个</p>
 <p><strong>1.回调问题</strong></p>
