@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;">
+<meta name="description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jsBridge">
 <meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2019/09/02/jsBridge/index.html">
 <meta property="og:site_name" content="陈明亮的 Blog">
-<meta property="og:description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;">
+<meta property="og:description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/web4.2.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/url1.png">
@@ -93,10 +93,10 @@
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/form.jpeg">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/jsBridge1.png">
 <meta property="og:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/jsBridge2.png">
-<meta property="og:updated_time" content="2019-09-10T10:02:54.466Z">
+<meta property="og:updated_time" content="2019-09-10T10:06:02.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jsBridge">
-<meta name="twitter:description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题1. java 调用 js 2. js 调用 java 原生调用方式java 调用 jswebView.loadUrl(&amp;quot;">
+<meta name="twitter:description" content="apk 和 H5 混合1.汇总jsbridge 是 java 和 js 之间的一个桥梁 最主要的就是 两端的通信 安全 效率 覆盖率 解决的问题1.漏洞问题 2.代码繁琐问题 3.android 接收 js 的回调只支持 android4.4 以上的版本 2.本质问题">
 <meta name="twitter:image" content="https://cmlgithub.github.io/2019/09/02/jsBridge/web4.2.png">
 
 
@@ -345,7 +345,8 @@
 <h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p>1.漏洞问题</p>
 <p>2.代码繁琐问题</p>
 <p>3.android 接收 js 的回调只支持 android4.4 以上的版本</p>
-<h2 id="2-本质问题"><a href="#2-本质问题" class="headerlink" title="2.本质问题"></a>2.本质问题</h2><p><strong>1. java 调用 js</strong></p>
+<h2 id="2-本质问题"><a href="#2-本质问题" class="headerlink" title="2.本质问题"></a>2.本质问题</h2><a id="more"></a>
+<p><strong>1. java 调用 js</strong></p>
 <p><strong>2. js 调用 java</strong></p>
 <h2 id="原生调用方式"><a href="#原生调用方式" class="headerlink" title="原生调用方式"></a>原生调用方式</h2><h3 id="java-调用-js"><a href="#java-调用-js" class="headerlink" title="java 调用 js"></a>java 调用 js</h3><p><code>webView.loadUrl(&quot;javascript:alertMsg(&quot; + &quot;&#39;Android传过来的参数&#39;&quot; + &quot;)&quot;)</code></p>
 <p><strong>本质:</strong>是一个拼接 js 字符串的过程.</p>
