@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="陈明亮的 Blog">
 <meta property="og:description" content="这篇讨论的仅仅是记录一些常用的便捷写法，方便查询！  方法的重载  Kotlin 中并没有重载这一说，但 Java 中是存在的，因此为了兼容 Java 所以有了@JvmOverloads 举例: Java 代码 void add(int a){} void add(int a,int b){} void add(int a,int b,int c){} void add(int a,int b,i">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-19T11:28:11.620Z">
+<meta property="og:updated_time" content="2021-04-25T06:50:09.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin 中那些便捷的写法">
 <meta name="twitter:description" content="这篇讨论的仅仅是记录一些常用的便捷写法，方便查询！  方法的重载  Kotlin 中并没有重载这一说，但 Java 中是存在的，因此为了兼容 Java 所以有了@JvmOverloads 举例: Java 代码 void add(int a){} void add(int a,int b){} void add(int a,int b,int c){} void add(int a,int b,i">
@@ -366,7 +366,33 @@ fun add(a: Int,b:Int=0,c:Int=0,d:Int=0,e:Int=0) {}
 <pre><code>class CustomView @JvmOverloads constructor(context: Context,attrs: AttributeSet? = null,defStyleAttr: Int = 0) : View(context,attrs,defStyleAttr)
 </code></pre><p>是不是方便的！</p>
 <p><strong>@JvmOverloads作用:给有默认值的参数生成重载方法。</strong></p>
+<blockquote>
+<p>设置监听</p>
+</blockquote>
+<p>监听的设置本质上是内部的方法被调用.在 Kotlin 中省去了接口的使用,因为 Kotlin 中方法(或者说含函数)是可以被传递的,同时也存在<code>函数类型</code>.</p>
+<p>Java 方式的监听代码</p>
+<pre><code>var listener: OnClickListener? = null
 
+interface OnClickListener{
+    fun onClick(view:View?)
+}
+
+fun setOnClickListener(listener: OnClickListener){
+    this.listener = listener
+}
+
+//调用时
+listener?.onClick(view)
+</code></pre><p>Kotlin 方式的监听代码</p>
+<pre><code>var onClick: ((View) -&gt; Unit)? = null
+
+fun setOnClickListener(onClick: (View) -&gt; Unit){
+    this.onClick = onClick
+}
+
+//调用时
+onClick?.invoke(view)
+</code></pre>
       
     </div>
     
@@ -481,7 +507,7 @@ fun add(a: Int,b:Int=0,c:Int=0,d:Int=0,e:Int=0) {}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
