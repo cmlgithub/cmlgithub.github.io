@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JAVA," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JVM 结构 说明: 这里列出几个 jvm 中重要的几个点进行梳理.至于没有涉及到的图中的点,是不需要深入了解的,因为那是涉及 jvm 跟 cpu 之间的交互了,一般都是 c 语言构成的,不在 java 范围内 1.class 文件">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA 虚拟机 JVM">
+<meta property="og:url" content="https://cmlgithub.github.io##定义网站访问的域名/2018/05/09/JAVA-虚拟机-JVM/index.html">
+<meta property="og:site_name" content="陈明亮的 Blog">
+<meta property="og:description" content="JVM 结构 说明: 这里列出几个 jvm 中重要的几个点进行梳理.至于没有涉及到的图中的点,是不需要深入了解的,因为那是涉及 jvm 跟 cpu 之间的交互了,一般都是 c 语言构成的,不在 java 范围内 1.class 文件">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/jvm.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/helloclass.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/classzhushi.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/classloadering.png">
+<meta property="og:image" content="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/classloadering2.png">
+<meta property="og:updated_time" content="2018-05-10T06:12:58.360Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA 虚拟机 JVM">
+<meta name="twitter:description" content="JVM 结构 说明: 这里列出几个 jvm 中重要的几个点进行梳理.至于没有涉及到的图中的点,是不需要深入了解的,因为那是涉及 jvm 跟 cpu 之间的交互了,一般都是 c 语言构成的,不在 java 范围内 1.class 文件">
+<meta name="twitter:image" content="https://cmlgithub.github.io/2018/05/09/JAVA-虚拟机-JVM/jvm.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cmlgithub.github.io##定义网站访问的域名/2018/05/09/JAVA-虚拟机-JVM/"/>
+
+
+
+
+
+  <title>JAVA 虚拟机 JVM | 陈明亮的 Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8fd4ada0332dc388c37d7285dc41b0a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈明亮的 Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cmlgithub.github.io##定义网站访问的域名/2018/05/09/JAVA-虚拟机-JVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cml">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/13469575?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈明亮的 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JAVA 虚拟机 JVM</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T09:13:16+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JVM-结构"><a href="#JVM-结构" class="headerlink" title="JVM 结构"></a>JVM 结构</h1><p><img src="/2018/05/09/JAVA-虚拟机-JVM/jvm.png" alt=""></p>
+<p>说明: <strong>这里列出几个 jvm 中重要的几个点进行梳理.至于没有涉及到的图中的点,是不需要深入了解的,因为那是涉及 jvm 跟 cpu 之间的交互了,一般都是 c 语言构成的,不在 java 范围内</strong></p>
+<h2 id="1-class-文件"><a href="#1-class-文件" class="headerlink" title="1.class 文件"></a>1.class 文件</h2><a id="more"></a>
+<p>class 文件,是由<code>.java</code>文件经过 javac 命令后形成的文件, class 能够被虚拟机识别并运行.</p>
+<p>我们看一个<code>.class</code>文件的结构<br><br>先看源码<code>Hello.java</code></p>
+<pre><code>public class Hello{
+    public static void main(String[] args){
+    System.out.print(&quot;Hello Java\n&quot;);
+}}
+</code></pre><p>源码比较简单.</p>
+<p>然后看看通过 javac 命令编译之后的文件格式.<br>这里通过 mac 版的010Editor软件打开的.<br>直接看图<br><img src="/2018/05/09/JAVA-虚拟机-JVM/helloclass.png" alt=""></p>
+<p>如图,红框区中的内容就是 class 文件的结构(当然并没有展示完全).</p>
+<p>这里再给出一个文件结构的解释图.画的不好,见谅!<br><img src="/2018/05/09/JAVA-虚拟机-JVM/classzhushi.png" alt=""></p>
+<p>好了,关于 class 文件就到这里了.</p>
+<h2 id="2-类加载器"><a href="#2-类加载器" class="headerlink" title="2.类加载器"></a>2.类加载器</h2><p><strong>1️⃣作用:将 class 文件加载到内存中</strong></p>
+<p><strong>2️⃣相关类</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ClassLoader</th>
+<th style="text-align:center">LoadPath</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Bootstrap ClassLoader</td>
+<td style="text-align:center">JRE\lib\rt.jar 或 Xbootclasspath 选项指定的 jar 包</td>
+</tr>
+<tr>
+<td style="text-align:center">Extension ClassLoader</td>
+<td style="text-align:center">JRE\lib\ext*.jar 或 Djava.ext.dirs 指定目录下的 jar 包</td>
+</tr>
+<tr>
+<td style="text-align:center">App ClassLoader</td>
+<td style="text-align:center">CLASSPATH 或 Djava.class.path 指定目录下的类和 jar 包</td>
+</tr>
+<tr>
+<td style="text-align:center">Custom ClassLoader</td>
+<td style="text-align:center">通过 java.lang.ClassLoader 的子类自定义加载 class</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总结:</strong> <br><br><strong>1.</strong>Bootstrap ClassLoader 和 Extension ClassLoader 是用来加载 jdk特定的 jar 包的.<br><br><strong>2.</strong>App ClassLoader 是应用程序用到的类加载器<br><br><strong>3.</strong>Custom ClassLoader 是我们自定义的类加载器,我们可以指定它加载某个目录中的文件(例如在 eclipse 中可以通过动态加载 jar 来扩展相应的功能,就是通过 Custom ClassLoader 来指定要加载的目录的)<br></p>
+<p><strong>3️⃣类的加载机制</strong></p>
+<p><strong>双亲加载机制:(委托机制)</strong><br><br>这里用一个例子来说明<br></p>
+<p>当我们的类 <code>Hello.class</code> 需要被加载的时候, 也就是说有这样一个类加载的请求的时候,会首先由 App ClassLoader把这个请求交给其父类 Extension ClassLoader 然后 Extension ClassLoader 再把这个请求交给它的父类 Bootstrap ClassLoader .<br></p>
+<p>那么 Bootstrap ClassLoader 会查看 rt.jar 中有没有这个类,也就是有没有被自己加载过.</p>
+<p>没有,那么好.</p>
+<p>把这个类的加载请求返回给 Extension ClassLoader.同样的 Extension ClassLoader 也会查看一下,这个类有没有被自己加载过.</p>
+<p>如果发现被找到了,那么就把<code>Hello.class</code>加载,而 App ClassLoader 就不会再加载这个类了.</p>
+<p>如果 Extension ClassLoader 也没有找到这个类,那么这个请求才会被 App ClassLoader 来查看此类是否存在于 classpath 中,存在则加载,不存在则抛ClassNotFoundException异常</p>
+<p>以上过程还用用图来总结一下.<br><img src="/2018/05/09/JAVA-虚拟机-JVM/classloadering.png" alt=""></p>
+<p>以上的内容只是负责把类加载到内存中,那么到内存以后呢?<br>别急,继续往下看</p>
+<p><strong>4️⃣类在内存中</strong><br><img src="/2018/05/09/JAVA-虚拟机-JVM/classloadering2.png" alt=""></p>
+<p>1.loading 就不用说太多了,就是上面我们刚刚介绍的,把<code>.class</code>加载到内存中<br><br>2.verifying 负责检查读入的结构是否符合 jvm 规范<br><br>3.preparing 分配一个结构来存储类信息.结构中包含了勒种的成员变量,方法和接口信息<br><br>4.resolving 把类的常量池中的所有符号引用改变为直接引用<br><br>5.initializing 把类中的变量初始化成合适的值,执行静态初始化程序</p>
+<p>对以上的步骤了解以后,我们就知道为什么类中的成员变量是先进行的默认初始化,然后才进行的显示初始化了.</p>
+<h2 id="3-内存区域"><a href="#3-内存区域" class="headerlink" title="3.内存区域"></a>3.内存区域</h2><p><strong>1. 虚拟机栈(Java Stack):</strong> 存放 Java 方法执行时的所有数据.每个方法对应一个栈帧,方法的执行就对应着栈帧的入栈到出栈的过程.每个栈帧中包含:局部变量表,栈操作数,动态链接和方法出口.<br><br><strong>2. 本地方法栈:</strong>类似于 java Stack, 主要用于服务 native 方法<br><br><strong>3.方法区:</strong>存储类信息,常量,静态变量.并且方法区是永远占据内存的<br><br><strong>4.堆 Heap:</strong>存储所有通过 new 创建的对象.并且是jvm 中最大的一块内存区域<br><br><strong>5.程序计数器</strong>保存当前线程执行的内存地址,例如在多线程中,由于可能发生中断而去执行别的线程,所以用来记录当前的执行位置,便于恢复执行</p>
+<h2 id="4-垃圾回收机制和相关算法"><a href="#4-垃圾回收机制和相关算法" class="headerlink" title="4.垃圾回收机制和相关算法"></a>4.垃圾回收机制和相关算法</h2><p>由于篇幅的问题,这部分内容会用一篇单独的文章来讲解.<br>主要是<strong>垃圾的收集方法</strong>和<strong>垃圾的回收方法</strong><br><a href="https://cmlgithub.github.io/2018/05/09/jvm-之垃圾回收/">JVM之垃圾回收</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/25/搞懂-AndroidStudio-中的-build-gradle-文件内容/" rel="next" title="搞懂 AndroidStudio 中的 build.gradle 文件内容">
+                <i class="fa fa-chevron-left"></i> 搞懂 AndroidStudio 中的 build.gradle 文件内容
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/09/jvm-之垃圾回收/" rel="prev" title="JVM 之垃圾回收">
+                JVM 之垃圾回收 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars1.githubusercontent.com/u/13469575?s=460&v=4"
+                alt="cml" />
+            
+              <p class="site-author-name" itemprop="name">cml</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM-结构"><span class="nav-number">1.</span> <span class="nav-text">JVM 结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-class-文件"><span class="nav-number">1.1.</span> <span class="nav-text">1.class 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-类加载器"><span class="nav-number">1.2.</span> <span class="nav-text">2.类加载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-内存区域"><span class="nav-number">1.3.</span> <span class="nav-text">3.内存区域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-垃圾回收机制和相关算法"><span class="nav-number">1.4.</span> <span class="nav-text">4.垃圾回收机制和相关算法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cml</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
