@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="陈明亮的 Blog">
 <meta property="og:description" content="ViewBinding的使用及原理背景1.findViewById 作为 Android 开发人员，没有不知道 findViewById 的。 想要操作视图中的控件，都需要先用到 findViewById 来找到这个控件，然后就可以对齐进行一系列的操作了（如：改变属性、设置监听、添加动画）。 缺点：当 xml 视图中控件较多时，代码中的 findViewById 也相应的越来越多。 2.Butte">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-12-02T15:29:02.189Z">
+<meta property="og:updated_time" content="2022-12-03T02:48:40.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ViewBinding的使用及原理">
 <meta name="twitter:description" content="ViewBinding的使用及原理背景1.findViewById 作为 Android 开发人员，没有不知道 findViewById 的。 想要操作视图中的控件，都需要先用到 findViewById 来找到这个控件，然后就可以对齐进行一系列的操作了（如：改变属性、设置监听、添加动画）。 缺点：当 xml 视图中控件较多时，代码中的 findViewById 也相应的越来越多。 2.Butte">
@@ -359,7 +359,7 @@ TextView tvContent;
     }
 }
 </code></pre><p>之后在编译的时候就会为我们的所有 xml 文件生成对应的 Binding 类了，如：activity_main.xml 对应的 ActivityMainBinding。</p>
-<p>使用也非常简单，如下：</p>
+<p>使用也非常简单，Activity 如下：</p>
 <pre><code>class MainActivity : AppCompatActivity() {
 
     private lateinit var activityMainBinding: ActivityMainBinding
@@ -371,6 +371,27 @@ TextView tvContent;
 
         activityMainBinding.tv_content = &quot;Smaple&quot;
     }
+}
+</code></pre><p>Fragment 如下：</p>
+<pre><code>class MainFragment: Fragment() {
+
+    private var fragmentMainBinding: FragmentMainBinding? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        fragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    // 注意：在这里将 Binding 对象置为 null，防止内存泄漏（因为 Fragment 存在的时间大于视图）
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentMainBinding = null
+    }
+
 }
 </code></pre><p>如果某个布局不想使用 ViewBinding ，也就是不生成对应的 xxxBinding 类，那么只需要在 xml 的根 View 中添加 <code>tools:viewBindingIgnore=&quot;true&quot;</code>。</p>
 <h2 id="ViewBinding-原理"><a href="#ViewBinding-原理" class="headerlink" title="ViewBinding 原理"></a>ViewBinding 原理</h2><p>原理追溯到本质上还是使用了 findViewById 来实现了绑定。</p>
